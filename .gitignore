@@ -1,0 +1,19 @@
+# Secrets
+.env
+.env.*
+*.env
+api.env
+.claude/api.env
+
+# Logs
+logs/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
