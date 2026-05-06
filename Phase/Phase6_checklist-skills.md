@@ -1,8 +1,8 @@
-# Phase 6 — kickoff-checklist + kickoff-skills 개발 `🔲 미시작`
+# Phase 6 — kickoff-checklist + kickoff-skills 개발 `✅ 완료`
 
 > 체크리스트 생성 스킬과 GitHub 스킬 가져오기 스킬 개발
 
-**상태**: 🔲 미시작
+**상태**: ✅ 완료
 **선행 조건**: Phase 5 완료
 
 ---
@@ -19,11 +19,11 @@
 
 | # | Skill / 모듈 | 상태 | 스킬 타입 |
 |---|---|---|---|
-| 1 | `kickoff-checklist` SKILL.md 작성 | 🔲 | project-specific |
-| 2 | `kickoff-skills` SKILL.md 작성 | 🔲 | project-specific |
-| 3 | gh CLI 스킬 복사 로직 구현 | 🔲 | - |
-| 4 | gh 미설치/미인증 시 대응 로직 | 🔲 | - |
-| 5 | 동작 테스트 | 🔲 | - |
+| 1 | `kickoff-checklist` SKILL.md 작성 | ✅ | project-specific |
+| 2 | `kickoff-skills` SKILL.md 작성 | ✅ | project-specific |
+| 3 | gh CLI 스킬 복사 로직 구현 | ✅ | - |
+| 4 | gh 미설치/미인증 시 대응 로직 | ✅ | - |
+| 5 | 동작 테스트 | ✅ | Phase 7 통합 테스트에서 검증 |
 
 ---
 
@@ -112,3 +112,4 @@ references 불필요 (체크리스트는 프로필 내용에서 동적 생성)
 | 날짜 | 내용 |
 |---|---|
 | 2026-05-04 | 최초 작성 |
+| 2026-05-06 | 상태 갱신: 구현 완료 반영 (Phase 7 통합 테스트 통과 확인) |

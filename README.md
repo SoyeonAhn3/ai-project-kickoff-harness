@@ -29,10 +29,10 @@ Developed using its own process (dogfooding): the harness was used to plan itsel
 /kickoff-interview   → Planning interview (What) + Design interview (How — skippable)
 /kickoff-suggest     → AI idea suggestions (up to 5, with effort estimates)
 /kickoff-profile     → project_kickoff.md generation (profile + architecture + data)
-/kickoff-evaluate    → Honest evaluation (value + feasibility check) [v1.5]
+/kickoff-evaluate    → Honest evaluation (4+2 dimension value + feasibility check)
 /kickoff-gap         → Gap/contradiction check (finds issues before development)
 /kickoff-checklist   → Dev checklist generation
-/kickoff-done        → Definition of Done (measurable completion criteria) [v1.5]
+/kickoff-done        → Definition of Done (measurable completion criteria)
 /kickoff-skills      → Base skill setup (7 skills from GitHub)
 ```
 
@@ -63,10 +63,10 @@ Run each skill in sequence:
 /kickoff-interview      # Planning & design interview
 /kickoff-suggest        # AI suggests additional ideas
 /kickoff-profile        # Generate project_kickoff.md
-/kickoff-evaluate       # Honest evaluation (v1.5 — in progress)
+/kickoff-evaluate       # Honest evaluation (4+2 dimensions)
 /kickoff-gap            # Check for gaps and contradictions
 /kickoff-checklist      # Generate dev checklist
-/kickoff-done           # Definition of Done (v1.5 — in progress)
+/kickoff-done           # Definition of Done (measurable criteria)
 /kickoff-skills         # Fetch base skills from GitHub
 ```
 
@@ -83,13 +83,15 @@ output/{project_name}/kickoff_state.md        # Progress tracking
 ```
 AI-Project-Kickoff-Harness/
 ├── .claude/skills/              # Kickoff skills + development skills
-│   ├── kickoff-context/         # User context collection (v1.5)
+│   ├── kickoff-context/         # User context collection
 │   ├── kickoff-start/           # Idea input + type detection
 │   ├── kickoff-interview/       # Planning & design interview
 │   ├── kickoff-suggest/         # AI idea suggestions
 │   ├── kickoff-profile/         # Kickoff document generation
+│   ├── kickoff-evaluate/        # Honest evaluation (4+2 dimensions)
 │   ├── kickoff-gap/             # Gap/contradiction check
 │   ├── kickoff-checklist/       # Dev checklist generation
+│   ├── kickoff-done/            # Definition of Done generation
 │   ├── kickoff-skills/          # GitHub skill fetch
 │   ├── dev-log/                 # Error/change logging (JSONL)
 │   ├── github-push/             # Commit & push automation
@@ -97,8 +99,8 @@ AI-Project-Kickoff-Harness/
 ├── Phase/                       # Phase-based development docs
 │   ├── Phase1~7                 # Core skills (completed)
 │   ├── Phase8_kickoff-context.md    # v1.5 — Context-Aware (completed)
-│   ├── Phase9_kickoff-evaluate.md   # v1.5 — Honest Evaluation
-│   └── Phase10_kickoff-done.md      # v1.5 — Definition of Done
+│   ├── Phase9_kickoff-evaluate.md   # v1.5 — Honest Evaluation (completed)
+│   └── Phase10_kickoff-done.md      # v1.5 — Definition of Done (completed)
 ├── output/                      # Generated kickoff documents per project
 │   └── hr_data_analytics/       # Integration test output
 └── pre-requirement/             # Planning & dogfooding artifacts
@@ -138,17 +140,17 @@ All 8+ discoveries were immediately reflected in the design. See [pre-requiremen
 | Phase 6 — checklist + skills | ✅ Complete | Checklist generation + GitHub skill fetch |
 | Phase 7 — integration test | ✅ Complete | End-to-end validation + documentation |
 | Phase 8 — kickoff-context | ✅ Complete | Context-aware prompting (v1.5) |
-| Phase 9 — kickoff-evaluate | 🔲 Not Started | Honest evaluation layer (v1.5) |
-| Phase 10 — kickoff-done | 🔲 Not Started | Definition of Done generation (v1.5) |
+| Phase 9 — kickoff-evaluate | ✅ Complete | Honest evaluation layer — 4+2 dimensions (v1.5) |
+| Phase 10 — kickoff-done | ✅ Complete | Definition of Done generation — 3+4 categories (v1.5) |
 
 ## Roadmap
 
-### v1.5 (In Progress)
+### v1.5 (Complete)
 
 - ✅ Context-Aware Prompting — collect user purpose/level/time before kickoff
-- 🔲 Honest Evaluation Layer — 5+1 dimension project feasibility check
-- 🔲 Definition of Done — measurable completion criteria generation
-- 🔲 Conditional security evaluation (web/app + external users only)
+- ✅ Honest Evaluation Layer — 4+2 dimension project feasibility check (conditional: learning cost for portfolio/study, security for web/app)
+- ✅ Definition of Done — measurable completion criteria generation (3+4 categories, evaluate-linked)
+- ✅ Conditional security evaluation (web/app + external users only)
 
 ### v2 (Planned)
 

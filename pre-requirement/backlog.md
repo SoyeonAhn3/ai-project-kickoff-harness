@@ -8,8 +8,9 @@
 
 ### BL-001: State 파일 슬림화
 
-**상태**: 대기 (Phase 8~10 구현 시 반영)
+**상태**: 부분 반영 (Phase 8 신규 스킬만 적용, kickoff-profile/gap 슬림화 미반영)
 **등록일**: 2026-05-06
+**갱신일**: 2026-05-06
 
 **내용**: kickoff-profile 실행 후 state 섹션 2~4를 상태 요약으로 슬림화하는 단계 추가
 
@@ -20,15 +21,16 @@
 - profile 생성 후: state 섹션 2~4를 상태만 남기고 슬림화, 상세는 kickoff 문서 참조
 - 원칙: state = 진행 추적기, kickoff 문서 = 콘텐츠 단일 출처
 
-**영향 범위**:
-| 파일 | 변경 | 이유 |
-|---|---|---|
-| kickoff-profile SKILL.md | 슬림화 단계 추가 | 전환점 역할 |
-| kickoff-gap SKILL.md | state 섹션 형식 축소 | 중복 제거 |
-| Phase 8~10 신규 스킬 | 처음부터 슬림 패턴 적용 | 신규이므로 바로 적용 |
-| kickoff-interview SKILL.md | 변경 없음 | profile 전이라 전체 저장 필요 |
-| kickoff-suggest SKILL.md | 변경 없음 | 같은 이유 |
-| kickoff-checklist SKILL.md | 변경 없음 | 이미 슬림 |
+**반영 현황**:
+| 파일 | 변경 | 상태 | 비고 |
+|---|---|---|---|
+| Phase 8 kickoff-context | 파일 미생성, start가 섹션 0-1로 영속화 | ✅ 반영 | Phase 8 구현 시 적용 |
+| kickoff-profile SKILL.md | 슬림화 단계 추가 | ❌ 미반영 | 전환점 역할 |
+| kickoff-gap SKILL.md | state 섹션 형식 축소 | ❌ 미반영 | 중복 제거 |
+| Phase 9~10 신규 스킬 | 처음부터 슬림 패턴 적용 | 🔲 미시작 | 구현 시 적용 예정 |
+| kickoff-interview SKILL.md | 변경 없음 | — | profile 전이라 전체 저장 필요 |
+| kickoff-suggest SKILL.md | 변경 없음 | — | 같은 이유 |
+| kickoff-checklist SKILL.md | 변경 없음 | — | 이미 슬림 |
 
 ### BL-002: 스킬 소스를 GitHub Skill_package로 통일
 

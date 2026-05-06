@@ -29,10 +29,10 @@
 /kickoff-interview   → 기획 인터뷰 (What) + 설계 인터뷰 (How — 패스 가능)
 /kickoff-suggest     → AI 아이디어 제안 (최대 5개, 난이도+시간 포함)
 /kickoff-profile     → project_kickoff.md 생성 (프로필 + 아키텍처 + 데이터 구조)
-/kickoff-evaluate    → 정직한 평가 (가치 + 실현가능성 점검) [v1.5]
+/kickoff-evaluate    → 정직한 평가 (4+2 차원 가치 + 실현가능성 점검)
 /kickoff-gap         → 누락/모순 점검 (개발 전에 문제 발견)
 /kickoff-checklist   → 개발 착수 체크리스트 생성
-/kickoff-done        → 완료 조건 생성 (측정 가능한 완료 기준) [v1.5]
+/kickoff-done        → 완료 조건 생성 (측정 가능한 완료 기준)
 /kickoff-skills      → 기본 스킬 세팅 (GitHub에서 7개 스킬 가져오기)
 ```
 
@@ -63,10 +63,10 @@
 /kickoff-interview      # 기획 & 설계 인터뷰
 /kickoff-suggest        # AI 추가 아이디어 제안
 /kickoff-profile        # project_kickoff.md 생성
-/kickoff-evaluate       # 정직한 평가 (v1.5 — 개발 중)
+/kickoff-evaluate       # 정직한 평가 (4+2 차원)
 /kickoff-gap            # 누락/모순 점검
 /kickoff-checklist      # 개발 착수 체크리스트 생성
-/kickoff-done           # 완료 조건 생성 (v1.5 — 개발 중)
+/kickoff-done           # 완료 조건 생성 (측정 가능한 기준)
 /kickoff-skills         # GitHub에서 기본 스킬 가져오기
 ```
 
@@ -83,13 +83,15 @@ output/{프로젝트명}/kickoff_state.md          # 진행 상태 추적
 ```
 AI-Project-Kickoff-Harness/
 ├── .claude/skills/              # Kickoff 스킬 + 개발 스킬
-│   ├── kickoff-context/         # 사용자 컨텍스트 수집 (v1.5)
+│   ├── kickoff-context/         # 사용자 컨텍스트 수집
 │   ├── kickoff-start/           # 아이디어 입력 + 유형 판별
 │   ├── kickoff-interview/       # 기획 & 설계 인터뷰
 │   ├── kickoff-suggest/         # AI 아이디어 제안
 │   ├── kickoff-profile/         # 킥오프 문서 생성
+│   ├── kickoff-evaluate/        # 정직한 평가 (4+2 차원)
 │   ├── kickoff-gap/             # 누락/모순 점검
 │   ├── kickoff-checklist/       # 개발 착수 체크리스트
+│   ├── kickoff-done/            # 완료 조건 생성
 │   ├── kickoff-skills/          # GitHub 스킬 가져오기
 │   ├── dev-log/                 # 에러/변경 기록 (JSONL)
 │   ├── github-push/             # 커밋 & 푸시 자동화
@@ -97,8 +99,8 @@ AI-Project-Kickoff-Harness/
 ├── Phase/                       # Phase별 개발 문서
 │   ├── Phase1~7                 # 핵심 스킬 (완료)
 │   ├── Phase8_kickoff-context.md    # v1.5 — 컨텍스트 (완료)
-│   ├── Phase9_kickoff-evaluate.md   # v1.5 — 정직한 평가
-│   └── Phase10_kickoff-done.md      # v1.5 — 완료 조건
+│   ├── Phase9_kickoff-evaluate.md   # v1.5 — 정직한 평가 (완료)
+│   └── Phase10_kickoff-done.md      # v1.5 — 완료 조건 (완료)
 ├── output/                      # 프로젝트별 킥오프 산출물
 │   └── hr_data_analytics/       # 통합 테스트 산출물
 └── pre-requirement/             # 기획 & dogfooding 산출물
@@ -138,17 +140,17 @@ AI-Project-Kickoff-Harness/
 | Phase 6 — checklist + skills | ✅ 완료 | 체크리스트 생성 + GitHub 스킬 가져오기 |
 | Phase 7 — 통합 테스트 | ✅ 완료 | 전체 흐름 검증 + 문서화 |
 | Phase 8 — kickoff-context | ✅ 완료 | 컨텍스트 인식 프롬프팅 (v1.5) |
-| Phase 9 — kickoff-evaluate | 🔲 미시작 | 정직한 평가 레이어 (v1.5) |
-| Phase 10 — kickoff-done | 🔲 미시작 | 완료 조건 생성 (v1.5) |
+| Phase 9 — kickoff-evaluate | ✅ 완료 | 정직한 평가 레이어 — 4+2 차원 (v1.5) |
+| Phase 10 — kickoff-done | ✅ 완료 | 완료 조건 생성 — 3+4 카테고리 (v1.5) |
 
 ## 로드맵
 
-### v1.5 (진행 중)
+### v1.5 (완료)
 
 - ✅ 컨텍스트 인식 프롬프팅 — 킥오프 전에 사용자 목적/수준/시간 수집
-- 🔲 정직한 평가 레이어 — 5+1개 차원으로 프로젝트 실현가능성 점검
-- 🔲 완료 조건 생성 — 측정 가능한 프로젝트 완료 기준 정의
-- 🔲 조건부 보안 평가 (웹/앱 + 외부 사용자 대상만 활성화)
+- ✅ 정직한 평가 레이어 — 4+2개 차원으로 프로젝트 실현가능성 점검 (조건부: 학습 비용은 포트폴리오/학습, 보안은 웹/앱)
+- ✅ 완료 조건 생성 — 측정 가능한 프로젝트 완료 기준 정의 (3+4 카테고리, evaluate 연동)
+- ✅ 조건부 보안 평가 (웹/앱 + 외부 사용자 대상만 활성화)
 
 ### v2 (예정)
 

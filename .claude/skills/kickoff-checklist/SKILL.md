@@ -180,7 +180,7 @@ project_kickoff.md를 기반으로 체크리스트를 생성했습니다.
 `{프로젝트명}_kickoff.md` 섹션 6이 업데이트되었습니다.
 진행 상태가 `kickoff_state.md`에 저장되었습니다.
 
-다음 단계로 `/kickoff-skills`를 실행하면 기본 개발 스킬이 프로젝트에 설치됩니다.
+다음 단계로 `/kickoff-evaluate`를 실행하면 프로젝트의 가치와 실현가능성을 평가합니다.
 ```
 
 ---
