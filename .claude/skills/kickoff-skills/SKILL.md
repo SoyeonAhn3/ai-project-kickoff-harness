@@ -126,7 +126,24 @@ git sparse-checkout set .claude/skills/dev-log .claude/skills/github-push .claud
 
 ---
 
-## STEP 4 — 완료 보고
+## STEP 4 — 완료 보고 및 상태 저장
+
+### 상태 파일 갱신
+
+Glob으로 `**/kickoff_state.md`를 검색하여 상태 파일을 Read한 후 Edit으로 아래 내용을 추가/갱신한다:
+
+1. `마지막 완료`를 `kickoff-skills`로 변경
+2. `마지막 갱신`을 현재 시각으로 변경
+3. 섹션 8을 추가:
+
+```markdown
+## 8. 스킬 세팅 (kickoff-skills)
+
+상태: 완료
+설치된 스킬: [N]개
+```
+
+### 안내 출력
 
 ```
 ## ✅ 스킬 설치 완료
@@ -149,7 +166,8 @@ git sparse-checkout set .claude/skills/dev-log .claude/skills/github-push .claud
 🎉 **킥오프 완료!**
 
 프로젝트 착수에 필요한 모든 준비가 끝났습니다:
-- `pre-requirement/project_kickoff.md` — 프로젝트 기준 문서
+- `{산출물 경로}/{프로젝트명}_kickoff.md` — 프로젝트 기준 문서
+- `{산출물 경로}/kickoff_state.md` — 킥오프 진행 이력
 - `.claude/skills/*` — 개발 스킬 세트
 
 이제 체크리스트(섹션 6)를 확인하면서 개발을 시작하시면 됩니다.

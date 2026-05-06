@@ -61,8 +61,44 @@
 
 ---
 
+## 3회차 — 자동화된 하네스 통합 테스트 (Phase 7)
+
+대상: HR 채용 데이터 분석 포트폴리오 (hr_data_analytics)
+
+### 실행 흐름
+
+| 단계 | 스킬 | 결과 |
+|---|---|---|
+| 1. 아이디어 입력 | kickoff-start | "HR 데이터 로드/가공 + AI 분석 + 시각화, datalake-warehouse-mart 구조" |
+| 2. 유형 판별 | kickoff-start | 데이터 파이프라인 + AI 프로젝트 (부가: BI 대시보드) |
+| 3. 기획 인터뷰 | kickoff-interview | 공통 7개 + 유형별 4개 질문. "추천해줘" 다수 → AI 추천 제공 |
+| 3-2. 설계 인터뷰 | kickoff-interview | 4개 영역 완료 (파이프라인, 데이터구조, 볼륨, 실패시나리오) |
+| 3.5 AI 제안 | kickoff-suggest | 5개 제안 → 전부 채택 (MVP 3개, 이후 확장 2개) |
+| 4. 프로필 생성 | kickoff-profile | hr_data_analytics_kickoff.md 생성 (섹션 1~6) |
+| 5. 누락/모순 점검 | kickoff-gap | 2건 발견 (누락 1, 모순 1) → 전체 해결 |
+| 8. 체크리스트 | kickoff-checklist | 18개 항목 생성 |
+| 9. 스킬 세팅 | kickoff-skills | 스킵 (이미 설치 완료 상태) |
+
+### 발견 및 반영 사항
+
+| 발견 | 심각도 | 반영 |
+|---|---|---|
+| kickoff-profile 실행 시 상태 파일에 섹션 5 추가 누락 | 낮 | kickoff_state.md에 섹션 5 수동 추가로 해결 |
+| kickoff-gap에서 Google Sheets 역할 모순 감지 | 중 | 기술 스택에서 제거, API 직접 수집으로 문서 수정 |
+| kickoff-gap에서 API 인증 관리 누락 감지 | 중 | .env 파일 관리 방식으로 제약사항에 추가 |
+
+### 산출물
+
+| 파일 | 상태 |
+|---|---|
+| output/hr_data_analytics/kickoff_state.md | ✅ 섹션 0~7 완성 |
+| output/hr_data_analytics/hr_data_analytics_kickoff.md | ✅ 섹션 1~6 완성 |
+
+---
+
 ## Dogfooding 종합 결론
 
-- 2회 실행으로 총 7건의 설계 개선이 이루어짐
-- 하네스 프로세스(1→2→3→3.5→4→5→8→9)가 실제로 동작함을 확인
+- 3회 실행으로 총 8건의 설계 개선이 이루어짐
+- 하네스 프로세스(1→2→3→3.5→4→5→8→9)가 끊김 없이 동작함을 확인
 - 주요 개선: 인터뷰 규칙 3건 추가, 3.5단계 MVP 편입, 산출물 단일 파일화
+- 3회차 추가 확인: 설계 인터뷰 포함 풀 코스 정상 동작, gap 점검이 실제 모순 감지 가능

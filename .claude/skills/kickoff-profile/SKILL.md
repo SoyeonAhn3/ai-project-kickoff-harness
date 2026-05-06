@@ -21,8 +21,8 @@ references:
 ## 사전 조건
 
 - `kickoff-suggest` 완료 (또는 전부 패스)
-- 기획 인터뷰 답변이 대화 컨텍스트에 있어야 함
-- 없으면 `/kickoff-interview`를 먼저 실행하도록 안내
+- 대화 컨텍스트에 인터뷰 답변/채택 아이디어가 없으면 Glob으로 `**/kickoff_state.md`를 검색하여 Read → 섹션 0~4에서 복원
+- 상태 파일도 없거나 섹션 2가 없으면 `/kickoff-interview`를 먼저 실행하도록 안내
 
 ---
 
@@ -43,9 +43,9 @@ references:
 
 ### 동작
 
-1. `pre-requirement/` 폴더 존재 확인 (없으면 생성)
+1. 상태 파일 섹션 0에서 산출물 경로와 프로젝트명 확인
 2. `references/profile-template.md` 참조하여 구조 결정
-3. project_kickoff.md 작성
+3. `{산출물 경로}/{프로젝트명}_kickoff.md` 작성
 
 ### 분기: 설계 인터뷰 진행 여부
 
@@ -55,7 +55,7 @@ references:
 
 ### 작성 규칙
 
-- 프로젝트명: 사용자가 명시하지 않으면 AI가 아이디어에서 적절한 이름 생성
+- 프로젝트명: kickoff-start에서 확정된 이름 사용 (상태 파일 섹션 0)
 - AI 추천 표기: "추천해줘"로 답한 항목은 값 뒤에 `(AI 추천)` 표기
 - 빈 항목: "미정" 표기 (빈칸 금지)
 - 섹션 5, 6: 헤더 + 안내 문구만 (이후 스킬이 내용 추가)
@@ -70,9 +70,9 @@ references:
 ### 출력 형식
 
 ```
-## 📄 project_kickoff.md 생성 완료
+## 📄 {프로젝트명}_kickoff.md 생성 완료
 
-**저장 위치**: `pre-requirement/project_kickoff.md`
+**저장 위치**: `{산출물 경로}/{프로젝트명}_kickoff.md`
 
 ### 포함된 내용:
 
@@ -96,15 +96,33 @@ references:
 
 ---
 
-## STEP 4 — 완료 안내
+## STEP 4 — 완료, 상태 저장 및 안내
 
 사용자가 확인하면:
+
+### 상태 파일 갱신
+
+상태 파일(`kickoff_state.md`)을 Read한 후 Edit으로 아래 내용을 추가/갱신한다:
+
+1. `마지막 완료`를 `kickoff-profile`로 변경
+2. `마지막 갱신`을 현재 시각으로 변경
+3. 섹션 5를 추가:
+
+```markdown
+## 5. 프로필 생성 (kickoff-profile)
+
+상태: 완료
+파일: {산출물 경로}/{프로젝트명}_kickoff.md
+```
+
+### 안내 출력
 
 ```
 ## ✅ 프로젝트 킥오프 문서 확정
 
-**파일**: `pre-requirement/project_kickoff.md`
+**파일**: `{산출물 경로}/{프로젝트명}_kickoff.md`
 
+진행 상태가 `kickoff_state.md`에 저장되었습니다.
 다음 단계로 `/kickoff-gap`을 실행하면 누락/모순 점검이 시작됩니다.
 ```
 
@@ -112,9 +130,10 @@ references:
 
 ## 출력 형식
 
-이 스킬은 **파일을 생성**한다:
-- 경로: `{프로젝트 루트}/pre-requirement/project_kickoff.md`
-- 이후 `kickoff-gap`과 `kickoff-checklist`가 이 파일을 읽고 섹션 5, 6을 추가
+이 스킬은 **파일을 생성하고 상태 파일을 갱신**한다:
+- 생성: `{산출물 경로}/{프로젝트명}_kickoff.md`
+- 갱신: `{산출물 경로}/kickoff_state.md` 섹션 5 추가
+- 이후 `kickoff-gap`과 `kickoff-checklist`가 킥오프 문서를 읽고 섹션 5, 6을 추가
 
 ---
 
@@ -123,8 +142,8 @@ references:
 | 실패 유형 | 처리 방법 |
 |---|---|
 | 인터뷰 답변 없이 실행 | `/kickoff-interview`를 먼저 실행하도록 안내 |
-| pre-requirement/ 폴더 생성 실패 | 에러 메시지 출력 + 수동 생성 안내 |
-| 기존 project_kickoff.md 존재 | "덮어쓰기 / 다른 이름 / 취소" 선택지 제시 |
+| 산출물 폴더 생성 실패 | 에러 메시지 출력 + 수동 생성 안내 |
+| 기존 킥오프 문서 존재 | "덮어쓰기 / 다른 이름 / 취소" 선택지 제시 |
 | 사용자가 대폭 수정 요청 | 수정 반영 후 파일 재저장 + 재확인 |
 
 ---
