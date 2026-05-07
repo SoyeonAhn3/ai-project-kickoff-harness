@@ -11,7 +11,7 @@
 
 두 개의 마무리 스킬을 개발한다:
 - kickoff-checklist: project_kickoff.md에 개발 착수 체크리스트(섹션 6) 추가
-- kickoff-skills: GitHub Skill_package에서 기본 7개 스킬을 가져와 .claude/skills/에 배치
+- kickoff-skills: 킥오프 완료 후 "스킬도 복사할까요?" 확인 → 프로젝트 폴더에 dev 스킬 복사
 
 ---
 
@@ -58,7 +58,7 @@ references 불필요 (체크리스트는 프로필 내용에서 동적 생성)
 
 ### 목적
 
-개발에 필요한 기본 Claude 스킬 세트를 GitHub Skill_package에서 가져와 프로젝트에 배치한다.
+킥오프 완료 후, 개발에 필요한 기본 Claude 스킬 세트를 GitHub Skill_package에서 가져와 **새로 생성된 프로젝트 폴더**에 배치한다.
 
 ### 구현 파일
 
@@ -69,21 +69,22 @@ references 불필요 (체크리스트는 프로필 내용에서 동적 생성)
 
 ### 핵심 동작
 
-1. gh CLI 설치 확인
+1. "스킬도 복사할까요?" 사용자 확인 (전체/선택/패스)
+2. gh CLI 설치 확인
    - 미설치 시: 안내 메시지 → 사용자가 "설치" 또는 "패스" 선택
-   - 패스 시: 스킬 세팅 건너뜀 안내 후 종료
-2. GitHub Skill_package 접근 확인 (https://github.com/SoyeonAhn3/Skill_package.git)
-3. 기본 7개 스킬 폴더를 복사:
+3. GitHub Skill_package 접근 확인 (https://github.com/SoyeonAhn3/Skill_package.git)
+4. 기본 7개 스킬 폴더를 복사:
    - dev-log, github-push, phase-doc, readme-gen, gen-manual, skill-template, test-scenario
-4. .claude/skills/에 배치
-5. 프로젝트 유형에 따라 선택적 스킬 추가 여부 확인:
-   - ai-multi-discussion, interview-prep, readme-update
-6. 완료 보고
+5. **프로젝트 폴더**(`../{프로젝트명}/.claude/skills/`)에 배치
+6. 프로젝트 유형에 따라 선택적 스킬 추가 여부 확인
+7. 완료 보고
 
 ### 설계 결정 사항
 
 | 결정 | 내용 | 이유 |
 |---|---|---|
+| 설치 위치 | 프로젝트 폴더(`../{프로젝트명}/.claude/skills/`) | 하네스와 프로젝트 분리 (BL-002) |
+| 사용자 확인 | "스킬도 복사할까요?" 먼저 확인 | 강제 설치 방지, 패스 허용 |
 | 복사 방식 | gh CLI로 특정 폴더만 가져오기 | 심링크는 다른 환경에서 깨짐 |
 | gh 미설치 대응 | 안내 + 패스 허용 | 강제 설치 없이 사용자 결정 |
 | 기본 7개 고정 | 모든 프로젝트에 무조건 | Plan.txt에서 확정 |
@@ -113,3 +114,4 @@ references 불필요 (체크리스트는 프로필 내용에서 동적 생성)
 |---|---|
 | 2026-05-04 | 최초 작성 |
 | 2026-05-06 | 상태 갱신: 구현 완료 반영 (Phase 7 통합 테스트 통과 확인) |
+| 2026-05-07 | BL-002 반영: 스킬 설치 위치를 프로젝트 폴더로 변경, "복사할까요?" 확인 추가 |

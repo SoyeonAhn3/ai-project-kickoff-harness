@@ -8,7 +8,7 @@
 
 많은 프로젝트가 실패하는 이유는 코드가 아니라, 개발 전에 요구사항이 명확하지 않기 때문이다. 이 하네스는 구조화된 인터뷰를 진행하고, 누락과 모순을 찾아내고, 포괄적인 킥오프 문서를 생성한다 — 코드 한 줄 쓰기 전에.
 
-이 하네스는 자기 자신을 사용해서(dogfooding) 개발되었다: 3회의 반복을 통해 8건 이상의 설계 개선을 발견하고 즉시 반영했다.
+이 하네스는 자기 자신을 사용해서(dogfooding) 개발되었다: 4회의 반복을 통해 10건 이상의 설계 개선을 발견하고 즉시 반영했다.
 
 ## 목차
 
@@ -28,7 +28,7 @@
 /kickoff-start       → 사용자 아이디어 (자유 텍스트) → 프로젝트 유형 판별
 /kickoff-interview   → 기획 인터뷰 (What) + 설계 인터뷰 (How — 패스 가능)
 /kickoff-suggest     → AI 아이디어 제안 (최대 5개, 난이도+시간 포함)
-/kickoff-profile     → project_kickoff.md 생성 (프로필 + 아키텍처 + 데이터 구조)
+/kickoff-profile     → project_kickoff.md 최종 검토 (일관성 + 품질 점검)
 /kickoff-evaluate    → 정직한 평가 (4+2 차원 가치 + 실현가능성 점검)
 /kickoff-gap         → 누락/모순 점검 (개발 전에 문제 발견)
 /kickoff-checklist   → 개발 착수 체크리스트 생성
@@ -62,7 +62,7 @@
 /kickoff-start          # 아이디어 입력 + 프로젝트 유형 판별
 /kickoff-interview      # 기획 & 설계 인터뷰
 /kickoff-suggest        # AI 추가 아이디어 제안
-/kickoff-profile        # project_kickoff.md 생성
+/kickoff-profile        # project_kickoff.md 최종 검토
 /kickoff-evaluate       # 정직한 평가 (4+2 차원)
 /kickoff-gap            # 누락/모순 점검
 /kickoff-checklist      # 개발 착수 체크리스트 생성
@@ -73,9 +73,10 @@
 ### 산출물
 
 ```
-output/{프로젝트명}/{프로젝트명}_kickoff.md    # 단일 기준 문서
-output/{프로젝트명}/kickoff_state.md          # 진행 상태 추적
-.claude/skills/*                              # 기본 개발 스킬 7개
+../{프로젝트명}/                              # 독립 프로젝트 폴더 (start에서 생성)
+├── pre-requirement/
+│   └── {프로젝트명}_kickoff.md               # 단일 기준 문서 (YAML frontmatter로 진행 추적)
+└── .claude/skills/*                          # 기본 개발 스킬 7개 (kickoff-skills가 복사)
 ```
 
 ## 프로젝트 구조
@@ -87,12 +88,12 @@ AI-Project-Kickoff-Harness/
 │   ├── kickoff-start/           # 아이디어 입력 + 유형 판별
 │   ├── kickoff-interview/       # 기획 & 설계 인터뷰
 │   ├── kickoff-suggest/         # AI 아이디어 제안
-│   ├── kickoff-profile/         # 킥오프 문서 생성
+│   ├── kickoff-profile/         # 킥오프 문서 최종 검토
 │   ├── kickoff-evaluate/        # 정직한 평가 (4+2 차원)
 │   ├── kickoff-gap/             # 누락/모순 점검
 │   ├── kickoff-checklist/       # 개발 착수 체크리스트
 │   ├── kickoff-done/            # 완료 조건 생성
-│   ├── kickoff-skills/          # GitHub 스킬 가져오기
+│   ├── kickoff-skills/          # 프로젝트 폴더에 스킬 복사
 │   ├── dev-log/                 # 에러/변경 기록 (JSONL)
 │   ├── github-push/             # 커밋 & 푸시 자동화
 │   └── ...                      # 기타 기본 스킬
@@ -101,8 +102,8 @@ AI-Project-Kickoff-Harness/
 │   ├── Phase8_kickoff-context.md    # v1.5 — 컨텍스트 (완료)
 │   ├── Phase9_kickoff-evaluate.md   # v1.5 — 정직한 평가 (완료)
 │   └── Phase10_kickoff-done.md      # v1.5 — 완료 조건 (완료)
-├── output/                      # 프로젝트별 킥오프 산출물
-│   └── hr_data_analytics/       # 통합 테스트 산출물
+├── output/                      # 레거시 테스트 데이터 (v1.0, state 파일 시대)
+│   └── hr_data_analytics/       # 통합 테스트 산출물 (보관용)
 └── pre-requirement/             # 기획 & dogfooding 산출물
     ├── Plan.txt                 # 마스터 플랜
     ├── backlog.md               # 개선 백로그
@@ -135,7 +136,7 @@ AI-Project-Kickoff-Harness/
 | Phase 1 — kickoff-start | ✅ 완료 | 아이디어 입력 + 유형 판별 스킬 |
 | Phase 2 — kickoff-interview | ✅ 완료 | 기획 & 설계 인터뷰 스킬 |
 | Phase 3 — kickoff-suggest | ✅ 완료 | AI 아이디어 제안 스킬 |
-| Phase 4 — kickoff-profile | ✅ 완료 | project_kickoff.md 생성 스킬 |
+| Phase 4 — kickoff-profile | ✅ 완료 | project_kickoff.md 최종 검토 스킬 |
 | Phase 5 — kickoff-gap | ✅ 완료 | 누락/모순 점검 스킬 |
 | Phase 6 — checklist + skills | ✅ 완료 | 체크리스트 생성 + GitHub 스킬 가져오기 |
 | Phase 7 — 통합 테스트 | ✅ 완료 | 전체 흐름 검증 + 문서화 |
@@ -151,13 +152,17 @@ AI-Project-Kickoff-Harness/
 - ✅ 정직한 평가 레이어 — 4+2개 차원으로 프로젝트 실현가능성 점검 (조건부: 학습 비용은 포트폴리오/학습, 보안은 웹/앱)
 - ✅ 완료 조건 생성 — 측정 가능한 프로젝트 완료 기준 정의 (3+4 카테고리, evaluate 연동)
 - ✅ 조건부 보안 평가 (웹/앱 + 외부 사용자 대상만 활성화)
+- ✅ State 파일 제거 — 킥오프 문서가 Single Source of Truth (BL-004)
+- ✅ 설계 인터뷰 중복 제거 — 기획에서 이미 답한 질문 건너뜀 (BL-003)
+- ✅ MVP 교차 일관성 검증 — 기능↔의존성↔완료조건 양방향 점검 (BL-008)
+- ✅ 사용자 표기 분리 — 포트폴리오 프로젝트에서 내부/외부 사용자 분리 (BL-007)
+- ✅ 제안→기능 동기화 — MVP 채택 아이디어를 핵심 기능 테이블에 자동 추가 (BL-009)
+- ✅ 기술 스택 미정 확인 — 미정 레이어에 대해 추천 제안 후 확정 (BL-010)
 
 ### v2 (예정)
 
-- Phase 문서 자동 생성
 - 설계 문서 7종 자동 생성 (architecture, data model, requirements 등)
 - Codex CLI / Gemini CLI 지원
-- 인터뷰 종료 조건 (충분한 정보 수집 시 자동 감지)
 
 ---
 

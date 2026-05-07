@@ -1,71 +1,50 @@
 ---
 name: kickoff-skills
 type: project-specific
-version: 1.0
-description: GitHub Skill_package에서 기본 개발 스킬 7개를 가져와 프로젝트에 설치한다. "/kickoff-skills", "스킬 설치해줘", "기본 스킬 가져와" 등의 요청 시 트리거한다.
+version: 2.0
+description: 킥오프 완료 후 프로젝트 폴더에 기본 개발 스킬 7개를 복사한다. "/kickoff-skills", "스킬 설치해줘", "기본 스킬 가져와", "스킬 복사해줘" 등의 요청 시 트리거한다.
 required_environment:
   - gh CLI 설치 및 인증
 depends_on:
-  - kickoff-checklist
+  - kickoff-done
 produces:
-  - .claude/skills/* (기본 7개 스킬)
+  - "../{프로젝트명}/.claude/skills/* (기본 7개 스킬)"
 references: []
 ---
 
 # kickoff-skills Skill
 
-GitHub Skill_package 레포에서 기본 개발 스킬 7개를 가져와 프로젝트의 `.claude/skills/`에 배치하는 스킬. 프로젝트 유형에 따라 선택적 스킬 추가도 안내.
+킥오프 문서가 완성된 프로젝트 폴더에 GitHub Skill_package 레포의 기본 개발 스킬 7개를 복사하는 스킬. 스킬은 하네스가 아닌 **새로 생성된 프로젝트 폴더**에 설치된다.
 
 ---
 
 ## 사전 조건
 
+- 킥오프 문서(`{프로젝트명}_kickoff.md`)가 존재해야 함
+- 대화 컨텍스트에 경로가 없으면 Glob으로 `**/*_kickoff.md`를 검색
+  - 0개 발견: `/kickoff-start`를 먼저 실행하도록 안내
+  - 1개 발견: 해당 파일 Read → YAML frontmatter에서 `last_skill` 확인
+  - 2개 이상 발견: frontmatter에 `last_skill` 필드가 있는 파일만 대상, 여러 개면 사용자에게 선택 요청
+- YAML frontmatter `last_skill`이 `kickoff-done` 이상이어야 함
+  - 아니면 `/kickoff-done`을 먼저 실행하도록 안내
 - gh CLI 설치 및 인증 (`gh auth status`로 확인)
-- 인터넷 접근 가능
-- `.claude/skills/` 디렉토리 쓰기 권한
 
 ---
 
-## STEP 1 — gh CLI 확인
+## STEP 1 — 스킬 복사 확인
 
-```bash
-gh --version
-gh auth status
-```
+킥오프 완료 후 사용자에게 스킬 복사 여부를 확인한다.
 
-### 분기
-
-- **gh 설치됨 + 인증됨** → STEP 2로 진행
-- **gh 미설치** → 안내 메시지 출력:
+### 출력 형식
 
 ```
-## ⚠️ gh CLI가 설치되어 있지 않습니다
+## 📦 개발 스킬 설치
 
-스킬 설치에 gh CLI가 필요합니다.
-- 설치: https://cli.github.com/
-- 설치 후: `gh auth login`
+킥오프가 완료되었습니다. 프로젝트 폴더에 기본 개발 스킬을 복사할까요?
 
-**선택:**
-1. 설치 후 다시 실행
-2. 스킬 설치 패스 (나중에 수동으로 가능)
-```
+**설치 위치**: `../{프로젝트명}/.claude/skills/`
 
-- **gh 인증 실패** → `gh auth login` 안내 후 재시도 요청
-
----
-
-## STEP 2 — 기본 스킬 가져오기
-
-### 소스 레포
-
-```
-https://github.com/SoyeonAhn3/Skill_package.git
-경로: .claude/skills/
-```
-
-### 기본 7개 스킬 (무조건 설치)
-
-| # | 스킬명 | 역할 |
+| # | 스킬 | 역할 |
 |---|---|---|
 | 1 | dev-log | 개발 중 에러/변경 기록 (JSONL) |
 | 2 | github-push | 커밋 & 푸시 자동화 |
@@ -75,21 +54,57 @@ https://github.com/SoyeonAhn3/Skill_package.git
 | 6 | skill-template | 새 스킬 추가 시 템플릿 |
 | 7 | test-scenario | 테스트 시나리오 자동 생성 및 결과 기록 |
 
+**선택:**
+1. 전체 설치
+2. 선택 설치 (번호로 지정)
+3. 패스 (나중에 수동 설치)
+```
+
+### 분기
+
+- **전체/선택 설치** → STEP 2로 진행
+- **패스** → STEP 4로 이동 (스킬 설치 없이 완료 처리)
+
+---
+
+## STEP 2 — gh CLI 확인 및 스킬 복사
+
+### gh CLI 확인
+
+```bash
+gh --version
+gh auth status
+```
+
+- **gh 미설치** → 설치 안내 + 패스 허용
+- **gh 인증 실패** → `gh auth login` 안내 후 재시도 요청
+
+### 소스 레포
+
+```
+https://github.com/SoyeonAhn3/Skill_package.git
+경로: .claude/skills/
+```
+
 ### 복사 방식
 
-gh CLI로 특정 폴더만 sparse checkout:
+gh CLI로 특정 폴더만 sparse checkout 후 프로젝트 폴더에 복사:
 
 ```bash
 # 임시 디렉토리에 sparse clone
 gh repo clone SoyeonAhn3/Skill_package -- --depth 1 --filter=blob:none --sparse
 cd Skill_package
 git sparse-checkout set .claude/skills/dev-log .claude/skills/github-push .claude/skills/phase-doc .claude/skills/readme-gen .claude/skills/gen-manual .claude/skills/skill-template .claude/skills/test-scenario
-# 복사 후 임시 디렉토리 삭제
+# ../{프로젝트명}/.claude/skills/에 복사 후 임시 디렉토리 삭제
 ```
+
+### 설치 대상 경로
+
+YAML frontmatter에서 확인한 프로젝트 폴더: `../{프로젝트명}/.claude/skills/`
 
 ### 충돌 처리
 
-이미 같은 이름의 스킬이 `.claude/skills/`에 존재하는 경우:
+이미 같은 이름의 스킬이 프로젝트 폴더에 존재하는 경우:
 
 ```
 [스킬명]이 이미 존재합니다. 어떻게 할까요?
@@ -126,51 +141,38 @@ git sparse-checkout set .claude/skills/dev-log .claude/skills/github-push .claud
 
 ---
 
-## STEP 4 — 완료 보고 및 상태 저장
+## STEP 4 — 완료 및 안내
 
-### 상태 파일 갱신
+### YAML frontmatter 갱신
 
-Glob으로 `**/kickoff_state.md`를 검색하여 상태 파일을 Read한 후 Edit으로 아래 내용을 추가/갱신한다:
-
-1. `마지막 완료`를 `kickoff-skills`로 변경
-2. `마지막 갱신`을 현재 시각으로 변경
-3. 섹션 8을 추가:
-
-```markdown
-## 8. 스킬 세팅 (kickoff-skills)
-
-상태: 완료
-설치된 스킬: [N]개
-```
+킥오프 문서의 YAML frontmatter `last_skill`을 `kickoff-skills`로 변경 (Edit 사용)
 
 ### 안내 출력
 
 ```
-## ✅ 스킬 설치 완료
+## ✅ 킥오프 완료!
+
+### 프로젝트 폴더 구조
+
+{프로젝트명}/
+├── pre-requirement/
+│   └── {프로젝트명}_kickoff.md    ← 프로젝트 기준 문서
+└── .claude/skills/                ← 개발 스킬 세트
+    ├── dev-log/
+    ├── github-push/
+    └── ...
 
 ### 설치된 스킬
 
 | # | 스킬 | 상태 |
 |---|---|---|
-| 1 | dev-log | ✅ 설치됨 |
-| 2 | github-push | ✅ 설치됨 |
-| 3 | phase-doc | ✅ 설치됨 |
-| 4 | readme-gen | ✅ 설치됨 |
-| 5 | gen-manual | ✅ 설치됨 |
-| 6 | skill-template | ✅ 설치됨 |
-| 7 | test-scenario | ✅ 설치됨 |
-| (선택) | [스킬명] | ✅ / ⏭️ 패스 |
+| 1 | dev-log | ✅ / ⏭️ |
+| ... | ... | ... |
 
 ---
 
-🎉 **킥오프 완료!**
-
-프로젝트 착수에 필요한 모든 준비가 끝났습니다:
-- `{산출물 경로}/{프로젝트명}_kickoff.md` — 프로젝트 기준 문서
-- `{산출물 경로}/kickoff_state.md` — 킥오프 진행 이력
-- `.claude/skills/*` — 개발 스킬 세트
-
-이제 체크리스트(섹션 6)를 확인하면서 개발을 시작하시면 됩니다.
+이제 프로젝트 폴더(`../{프로젝트명}/`)로 이동하여 개발을 시작하시면 됩니다.
+체크리스트(킥오프 문서 섹션 6)를 확인하면서 진행하세요.
 ```
 
 ---
@@ -183,13 +185,13 @@ Glob으로 `**/kickoff_state.md`를 검색하여 상태 파일을 Read한 후 Ed
 | gh 인증 실패 | `gh auth login` 안내 |
 | 레포 접근 불가 (private/삭제) | 에러 메시지 + 수동 복사 안내 |
 | 네트워크 오류 | 재시도 안내 + 패스 허용 |
-| 디스크 쓰기 실패 | 권한 확인 안내 |
+| 프로젝트 폴더 없음 | `/kickoff-start`를 먼저 실행하도록 안내 (폴더는 start에서 생성) |
 
 ---
 
 ## 주의사항
 
-- 기존 kickoff-* 스킬은 절대 덮어쓰지 않음 (이 프로젝트의 핵심 스킬)
-- 기본 7개 복사 시 kickoff-* 폴더는 제외
-- gh 패스 시에도 킥오프 자체는 완료로 처리 (스킬은 나중에 수동 설치 가능)
+- 스킬은 **프로젝트 폴더**에 설치, 하네스 폴더에 설치하지 않음
+- 하네스의 kickoff-* 스킬은 복사 대상이 아님 (개발 스킬만 복사)
+- 패스 시에도 킥오프 자체는 완료로 처리 (스킬은 나중에 수동 설치 가능)
 - 임시 클론 디렉토리는 반드시 정리
