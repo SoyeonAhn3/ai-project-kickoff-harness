@@ -161,7 +161,12 @@ All 8+ discoveries were immediately reflected in the design. See [pre-requiremen
 
 ### v2 (Planned)
 
-- Full design document generation (7 types: architecture, data model, requirements, etc.)
+- Design document generation (5 types, project-type adaptive):
+  - `/design-requirements` — features, non-functional requirements, user flows
+  - `/design-architecture` — system structure, tech choices with rationale
+  - `/design-data-model` — data schema, type definitions, integrity rules
+  - `/design-ai-workflow` — AI I/O, prompts, model selection, fallback (conditional: AI projects only)
+  - `/design-impl-spec` — implementation units, file structure, key component specs, phase overview
 - Codex CLI / Gemini CLI support
 
 ---

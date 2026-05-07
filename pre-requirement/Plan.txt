@@ -20,9 +20,7 @@ AI Project Kickoff Harness 기획 정리
 → 요구사항 정리
 → 누락/모순 점검
 → 개발 착수 체크리스트 생성
-→ 설계서 생성
-→ 데이터 구조 문서 생성
-→ Readme, Phase 문서 생성
+→ 설계 문서 생성 (requirements, architecture, data model, AI workflow, implementation spec)
 
 이 하네스의 목적
 
@@ -234,38 +232,77 @@ MVP 범위 확정 여부
 2. Skill_package의 해당 스킬 폴더를 심링크로 연결
 3. 프로젝트 유형에 따라 선택적 스킬 추가 여부를 사용자에게 확인
 
-6. 개발 Phase 생성
+6. 설계 문서 생성 (v2)
 
-프로젝트를 실제 개발 가능한 단계로 나눈다.
+킥오프 문서(What+Why)와 실제 코드(How) 사이의 gap을 채우는 설계 문서를 생성한다.
+킥오프 문서가 "무엇을 왜 만드는가"를 정의했다면, 설계 문서는 "어떻게 만드는가"를 정의한다.
 
-예:
+설계 문서 5종을 단계별 분리 스킬로 순차 생성한다:
 
-Phase 1. 환경 구축 및 샘플 데이터 준비
-Phase 2. 핵심 로직 구현
-Phase 3. AI 연동
-Phase 4. 대시보드/프론트 구현
-Phase 5. 통합 테스트 및 문서화
+| 순서 | 스킬 | 산출물 | 역할 |
+|---|---|---|---|
+| 1 | /design-requirements | requirements.md | 기능 목록, 비기능 요구사항, 사용자 플로우 확정 |
+| 2 | /design-architecture | architecture.md | 시스템 구조, 기술 선택 이유, 컴포넌트 구성 |
+| 3 | /design-data-model | data_model.md | 데이터 스키마, 타입 정의, 정합성 규칙 |
+| 4 | /design-ai-workflow | ai_workflow.md | AI 입출력, 프롬프트, 모델 선택, 폴백 (조건부) |
+| 5 | /design-impl-spec | implementation_spec.md | 구현 단위 분해 — 파일 구조, 핵심 컴포넌트 상세, Phase 개요 |
 
-각 Phase에는 목표, 작업 목록, 산출물, 완료 기준이 포함된다.
+산출물 위치: {프로젝트}/design/ (킥오프의 pre-requirement/와 분리)
 
-7. 핵심 문서 생성
+설계 문서 생성 규칙:
 
-하네스가 기존 스킬들을 활용해서 필요한 문서를 생성한다.
+  1. 순서 의존성 (last_skill 체이닝):
+     - AI 프로젝트: requirements → architecture → data_model → ai_workflow → implementation_spec
+     - 비AI 프로젝트: requirements → architecture → data_model → implementation_spec (ai_workflow 건너뜀)
+     - 각 스킬은 이전 문서가 완성되어야 진행 가능 (킥오프의 last_skill 체이닝과 동일 패턴)
 
-예:
+  2. "미정" 강제 해소:
+     - 킥오프 문서에서 기술 스택이 "미정"인 레이어가 있으면, 설계 문서 진입 전에 확정 필수
+     - 첫 번째 스킬(design-requirements)의 사전 조건으로 "미정" 레이어 존재 여부를 확인
+     - 미정 항목이 있으면 사용자에게 확정 요청 ("모름/추천" 옵션 포함)
 
-README.md
-project_brief.md
-architecture.md
-requirements.md
-data_model.md
-ai_workflow.md
-risk_and_limitations.md
-dev_checklist.md
+  3. 추가 인터뷰:
+     - 킥오프 문서의 정보로 부족한 부분만 추가 질문
+     - "잘 모르겠어" / "추천해줘" 옵션 유지 — AI가 제안 + 제안 사유를 함께 제시
+     - 킥오프 인터뷰 규칙(묶음 질문, 목적 맞는 추천 우선)을 그대로 계승
 
-문서는 너무 길게 한 파일에 몰아넣지 않고, 목적별로 나눈다.
+  4. 프로젝트 유형별 적응 (핵심):
+     - 모든 설계 스킬은 프로젝트 유형에 따라 내용이 달라져야 한다
+     - 방식: 공통 템플릿(80%) + 유형별 오버라이드(20%)
+     - 각 스킬의 references/에 공통 섹션 + 유형별 오버라이드 템플릿을 배치
+     - 킥오프 문서 `### 기본 정보 → 유형`을 읽어 해당 템플릿 선택
+     - 복합 유형(웹앱+AI): 주 유형 템플릿 + 부가 유형 섹션 추가
 
-README는 프로젝트의 첫 화면 역할만 하고, 자세한 내용은 docs나 Phase 문서로 연결한다.
+     유형별 차이 예시:
+
+     | 문서 | 웹앱 | 데이터 파이프라인 | AI 프로젝트 | CLI 도구 |
+     |---|---|---|---|---|
+     | requirements | 페이지, 사용자 플로우, API | 소스, 변환 규칙, SLA | 모델 요구사항, 정확도 | 커맨드, 플래그, I/O |
+     | architecture | 프론트/백엔드, 상태관리, 배포 | DAG, 오케스트레이션, 스토리지 | 서빙, 학습 파이프라인 | 모듈, 플러그인, 설정 |
+     | data_model | DB 스키마, API 계약, 상태 | 소스/변환/출력 스키마, 리니지 | 학습 데이터, 피처, I/O | 설정 포맷, I/O 구조 |
+     | ai_workflow | 해당 시에만 | 해당 시에만 | 핵심 — 프롬프트, 모델, 비용 | 해당 시에만 |
+     | impl_spec | 컴포넌트/페이지별 | 잡/커넥터별 | 학습/추론/평가별 | 커맨드/핸들러별 |
+
+  5. ai_workflow 조건부 활성화:
+     - 프로젝트 유형에 "AI"가 포함된 경우에만 생성
+     - AI가 부가 유형이면 생성하되 분량 축소
+     - AI 유형이 아니면 건너뛰고 implementation_spec으로 직행
+     - last_skill 체이닝: 비AI 프로젝트에서 implementation_spec은 data_model을 전제 조건으로 확인
+
+  6. implementation_spec과 phase-doc의 역할 분리:
+
+     implementation_spec.md (설계 스킬이 생성):
+     - 파일/모듈 단위 구조 + 핵심 컴포넌트는 props/동작까지 상세
+     - 보조 컴포넌트는 역할과 인터페이스만 정의
+     - 개발명세서 수준(px, 색상 토큰)까지는 가지 않음
+     - Phase 개요만 포함 — Phase별 구현 범위와 의존성을 간단히 정리
+     - "뭘 어떤 순서로 만들지"를 정의 (설계 → 코드의 다리)
+
+     phase-doc (스킬 패키지에 포함, 사용자가 원할 때 실행):
+     - implementation_spec.md의 Phase 개요를 기반으로 상세 문서 생성
+     - 각 Phase의 상세 작업 목록, 체크리스트, 테스트 기준, 개발 로그 구조
+     - kickoff-skills가 프로젝트에 스킬을 복사할 때 phase-doc이 포함됨
+     - "이번 Phase에서 정확히 뭘 해야 하는지"를 정의 (코드 → 실행의 다리)
 
 
 이 하네스의 핵심 차별점
@@ -328,16 +365,35 @@ project_kickoff.md 구조:
 - references/ 폴더는 skill-template의 판단 기준(데이터 크기, 독립 업데이트, 공유 스키마)에 해당할 때만 생성
 - 실패 처리 테이블 필수
 
-v2 (문서 자동 생성) — 추가 단계: 6, 7
+v2 (설계 문서 자동 생성) — 추가 단계: 6
 
-| 단계 | 내용 | 산출물 |
-|---|---|---|
-| 6 | 개발 Phase 생성 | Phase/ 디렉토리 (Phase별 문서) |
-| 7 | 핵심 문서 7종 생성 | project_brief.md, architecture.md, requirements.md, data_model.md, ai_workflow.md, risk_and_limitations.md, dev_checklist.md |
+킥오프 문서(What+Why) → 설계 문서(How) 전환. 5개 스킬이 순차적으로 설계 문서를 생성한다.
+
+| 순서 | 스킬 | 산출물 | 조건 |
+|---|---|---|---|
+| 1 | /design-requirements | design/requirements.md | 항상 |
+| 2 | /design-architecture | design/architecture.md | 항상 |
+| 3 | /design-data-model | design/data_model.md | 항상 |
+| 4 | /design-ai-workflow | design/ai_workflow.md | AI 유형 포함 시에만 |
+| 5 | /design-impl-spec | design/implementation_spec.md | 항상 |
+
+전제 조건:
+- 킥오프 문서 완성 (last_skill ≥ kickoff-done)
+- 기술 스택 "미정" 레이어 없음 (진입 전 확정 필수)
+
+last_skill 체이닝 분기:
+- AI 프로젝트: requirements → architecture → data_model → ai_workflow → implementation_spec
+- 비AI 프로젝트: requirements → architecture → data_model → implementation_spec
+- impl_spec의 전제 조건: AI 프로젝트면 ai_workflow, 비AI면 data_model
+
+핵심 설계 결정:
+- 스킬 구조: 단계별 분리 (5개 독립 스킬, 킥오프와 동일 패턴)
+- 추가 인터뷰: 부족한 부분만 질문 + "모름/추천" 옵션 유지
+- 유형 적응: 공통 템플릿(80%) + 유형별 오버라이드(20%)
+- impl_spec: Phase 개요만 포함 (구현 범위 + 의존성), 상세는 phase-doc으로 분리
+- phase-doc: 스킬 패키지에 포함, impl_spec의 Phase 개요 기반으로 상세 작업/체크리스트/테스트 기준 생성
+- 산출물 위치: {프로젝트}/design/ (pre-requirement/와 분리)
 
 미정 (차후 결정):
-- 인터뷰 종료 조건 (필수 항목 충족 기준)
-- 유형별 질문 템플릿 매핑
-- 반복 실행 (현재 one-shot으로 결정, 필요 시 v2 이후 별도 스킬로 분리)
 - Codex/Gemini CLI 지원 방식
-- README 자동 생성 (v2, readme-gen 스킬 활용)
+- README 자동 생성 (readme-gen 스킬 활용)

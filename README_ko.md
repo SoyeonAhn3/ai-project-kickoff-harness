@@ -161,7 +161,12 @@ AI-Project-Kickoff-Harness/
 
 ### v2 (예정)
 
-- 설계 문서 7종 자동 생성 (architecture, data model, requirements 등)
+- 설계 문서 5종 자동 생성 (프로젝트 유형별 적응):
+  - `/design-requirements` — 기능 목록, 비기능 요구사항, 사용자 플로우 확정
+  - `/design-architecture` — 시스템 구조, 기술 선택 이유, 컴포넌트 구성
+  - `/design-data-model` — 데이터 스키마, 타입 정의, 정합성 규칙
+  - `/design-ai-workflow` — AI 입출력, 프롬프트, 모델 선택, 폴백 (조건부: AI 프로젝트만)
+  - `/design-impl-spec` — 구현 단위 분해, 파일 구조, 핵심 컴포넌트 상세, Phase 개요
 - Codex CLI / Gemini CLI 지원
 
 ---
