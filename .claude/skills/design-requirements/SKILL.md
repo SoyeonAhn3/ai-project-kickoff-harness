@@ -26,7 +26,7 @@ references:
   - 0개 발견: `/kickoff-start`를 먼저 실행하도록 안내
   - 1개 발견: 해당 파일 Read
   - 2개 이상 발견: 사용자에게 선택 요청
-- YAML frontmatter `last_skill`이 `kickoff-done` 이상이어야 함
+- YAML frontmatter `completed_skills`에 `kickoff-done`이 포함되어야 함
   - 아니면 `/kickoff-done`을 먼저 실행하도록 안내
 - 기술 스택에 "미정" 항목이 있으면 **반드시 사용자에게 확정을 요청**한 후 진행
   - 미정 레이어를 표로 보여주고, 추천 + 사용자 선택을 받아 섹션 1 기술 스택 테이블을 Edit
@@ -219,6 +219,9 @@ STEP 2~5 결과를 조합하여 섹션 9 전체 초안을 사용자에게 제시
 
 ```yaml
 last_skill: design-requirements
+completed_skills:
+  - ... (기존 목록)
+  - design-requirements
 ```
 
 ### 7-3. Revision History 추가
@@ -253,7 +256,7 @@ STEP 5 인터뷰 결과로 기존 섹션(1~8)을 수정해야 하는 경우:
 | 실패 유형 | 처리 방법 |
 |---|---|
 | 킥오프 문서 없음 | `/kickoff-start`를 먼저 실행하도록 안내 |
-| `last_skill` 미달 | `/kickoff-done`을 먼저 실행하도록 안내 |
+| `completed_skills` 미달 | `/kickoff-done`을 먼저 실행하도록 안내 |
 | 기술 스택 "미정" 존재 | 미정 항목 표시 + 추천 제시 + 사용자 확정 요청 |
 | 섹션 9 이미 존재 | 덮어쓰기/수정 선택지 제시 |
 | 파일 Edit 실패 | 해당 섹션 다시 Read 후 정확한 문자열로 재시도 |

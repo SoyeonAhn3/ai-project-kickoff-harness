@@ -21,9 +21,9 @@ references: []
 - 킥오프 문서(`{프로젝트명}_kickoff.md`)가 존재해야 함
 - 대화 컨텍스트에 경로가 없으면 Glob으로 `**/*_kickoff.md`를 검색
   - 0개 발견: `/kickoff-start`를 먼저 실행하도록 안내
-  - 1개 발견: 해당 파일 Read → YAML frontmatter에서 `last_skill` 확인
-  - 2개 이상 발견: frontmatter에 `last_skill` 필드가 있는 파일만 대상, 여러 개면 사용자에게 선택 요청
-- YAML frontmatter `last_skill`이 `kickoff-interview` 이상이어야 함
+  - 1개 발견: 해당 파일 Read → YAML frontmatter 확인
+  - 2개 이상 발견: frontmatter에 `completed_skills` 필드가 있는 파일만 대상, 여러 개면 사용자에게 선택 요청
+- YAML frontmatter `completed_skills`에 `kickoff-interview`가 포함되어야 함
 - 킥오프 문서 Section 1에서 인터뷰 답변(핵심 기능, 제약사항 등) 확인, Sections 2-4에서 설계 데이터 확인 (있는 경우)
 
 ---
@@ -137,7 +137,7 @@ references: []
 
 킥오프 문서(`{프로젝트명}_kickoff.md`)를 Read한 후 Edit으로 아래 내용을 갱신한다:
 
-1. **YAML frontmatter** `last_skill`을 `kickoff-suggest`로 변경
+1. **YAML frontmatter** `last_skill`을 `kickoff-suggest`로 변경, `completed_skills`에 `kickoff-suggest` 추가
 
 2. **Section 1 `### 채택된 AI 제안`** 플레이스홀더를 채택 테이블로 교체:
 
@@ -180,7 +180,7 @@ references: []
 이 스킬은 **킥오프 문서를 직접 업데이트**한다:
 - 대상: `{프로젝트명}_kickoff.md`
 - 방식: Section 1 `### 채택된 AI 제안` 플레이스홀더 교체 + MVP 채택 항목을 `### 핵심 기능` 테이블에 추가 (Edit 사용)
-- YAML frontmatter `last_skill` 갱신
+- YAML frontmatter `last_skill` 및 `completed_skills` 갱신
 
 ---
 

@@ -1,8 +1,9 @@
-# Phase 13 — IntegrationTestV2 `Not Started`
+# Phase 13 — IntegrationTestV2 `Completed`
 
 > End-to-end validation of v2 design document chain
 
-**Status**: Not Started
+**Completed**: 2026-05-12
+**Status**: ✅ Completed
 **Prerequisites**: Phase 12 complete
 **Version**: v2
 
@@ -18,13 +19,13 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 | # | Item | Status | Notes |
 |---|---|---|---|
-| 1 | Test scenarios defined | ⬜ | 5 scenarios (A-E) |
-| 2 | Scenario A: full flow with AI project | ⬜ | design-requirements through impl-spec |
-| 3 | Scenario B: full flow non-AI project | ⬜ | Skip ai-workflow |
-| 4 | Scenario C: "undecided" tech stack | ⬜ | Forced resolution test |
-| 5 | Scenario D: re-run / edit test | ⬜ | Edit existing + Revision History |
-| 6 | Scenario E: cross-section edit test | ⬜ | User confirmation flow |
-| 7 | dogfooding_log update | ⬜ | v2 round results |
+| 1 | Test scenarios defined | ✅ | 5 scenarios (A-E) |
+| 2 | Scenario A: full flow with AI project | ✅ | design-requirements through ai-workflow |
+| 3 | Scenario B: full flow non-AI project | ✅ | Skip ai-workflow |
+| 4 | Scenario C: "undecided" tech stack | ✅ | Forced resolution test |
+| 5 | Scenario D: re-run / edit test | ✅ | Edit existing + Revision History |
+| 6 | Scenario E: cross-section edit test | ✅ | User confirmation flow |
+| 7 | dogfooding_log update | ✅ | v2 round results — BL-012~016 discovered and resolved |
 
 ---
 
@@ -32,23 +33,25 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 ### Scenario A — AI Project (Full Flow)
 
-**Flow**: design-requirements -> design-architecture -> design-data-model -> design-ai-workflow -> design-impl-spec
+**Flow**: design-requirements -> design-architecture -> design-data-model -> design-ai-workflow -> kickoff-gap -> kickoff-checklist
 
 **Verification**:
-- Sections 9-13 all present in `_kickoff.md`
+- Sections 9-12 all present in `_kickoff.md`
 - Section 12 (AI Workflow) included with full content
 - Type-specific content matches AI project patterns (serving/training split, prompt design, etc.)
 - `last_skill` correctly updated at each step
-- YAML frontmatter reflects final state: `last_skill: design-impl-spec`
+- YAML frontmatter reflects final state: `last_skill: design-ai-workflow`
+- gap detects v2 cross-section consistency issues (category 7)
+- checklist generates project structure tree + .env.example
 
 ### Scenario B — Non-AI Project
 
-**Flow**: design-requirements -> design-architecture -> design-data-model -> design-impl-spec
+**Flow**: design-requirements -> design-architecture -> design-data-model -> kickoff-gap -> kickoff-checklist
 
 **Verification**:
-- Sections 9, 10, 11, 13 present in `_kickoff.md`
+- Sections 9, 10, 11 present in `_kickoff.md`
 - Section 12 does NOT exist (ai-workflow skipped)
-- impl-spec correctly follows data-model (`last_skill` = `design-data-model` as prerequisite)
+- gap correctly follows data-model (`last_skill` = `design-data-model` as prerequisite)
 - Type-specific content matches non-AI patterns (e.g., WebApp: DB schema, component/page-based structure)
 
 ### Scenario C — "Undecided" Tech Stack
@@ -94,7 +97,7 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 - Phase 11 and Phase 12 skill development complete
 - At least one completed kickoff project available (from v1 integration test or newly created)
-- All 5 design skills functional: design-requirements, design-architecture, design-data-model, design-ai-workflow, design-impl-spec
+- All 4 design skills functional: design-requirements, design-architecture, design-data-model, design-ai-workflow
 
 ---
 
@@ -112,11 +115,11 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 1. All 5 scenarios (A-E) pass without errors
 2. `_kickoff.md` remains a coherent, well-structured single file after full flow
-3. AI project flow includes all 5 design sections (9-13)
-4. Non-AI project flow includes 4 design sections (9-11, 13) with section 12 skipped
+3. AI project flow includes all 4 design sections (9-12)
+4. Non-AI project flow includes 3 design sections (9-11) with section 12 skipped
 5. Re-run produces edits (not duplicates) with Revision History tracking
 6. Cross-section edit flow respects user confirmation
-7. dogfooding_log updated with v2 round results
+7. BL-012~016 discovered and resolved through finance_data_platform integration test
 
 ---
 
@@ -125,15 +128,17 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 | Date | Description |
 |---|---|
 | 2026-05-12 | Initial creation |
+| 2026-05-12 | Completed — design-impl-spec removed (BL-013), scenarios updated to 4 design skills, BL-012~016 resolved |
 
 ---
 ---
 
-# Phase 13 — IntegrationTestV2 `대기`
+# Phase 13 — IntegrationTestV2 `완료`
 
 > v2 설계 문서 체인의 엔드투엔드 검증
 
-**상태**: ⬜ 대기
+**완료일**: 2026-05-12
+**상태**: ✅ 완료
 **선행 조건**: Phase 12 완료
 **버전**: v2
 
@@ -149,13 +154,13 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 | # | 항목 | 상태 | 비고 |
 |---|---|---|---|
-| 1 | 테스트 시나리오 정의 | ⬜ | 5개 시나리오 (A-E) |
-| 2 | 시나리오 A: AI 프로젝트 전체 흐름 | ⬜ | design-requirements부터 impl-spec까지 |
-| 3 | 시나리오 B: 비AI 프로젝트 전체 흐름 | ⬜ | ai-workflow 건너뜀 |
-| 4 | 시나리오 C: "미정" 기술 스택 | ⬜ | 강제 해소 테스트 |
-| 5 | 시나리오 D: 재실행 / 편집 테스트 | ⬜ | 기존 섹션 Edit + Revision History |
-| 6 | 시나리오 E: 교차 섹션 편집 테스트 | ⬜ | 사용자 확인 흐름 |
-| 7 | dogfooding_log 업데이트 | ⬜ | v2 라운드 결과 |
+| 1 | 테스트 시나리오 정의 | ✅ | 5개 시나리오 (A-E) |
+| 2 | 시나리오 A: AI 프로젝트 전체 흐름 | ✅ | design-requirements부터 ai-workflow까지 |
+| 3 | 시나리오 B: 비AI 프로젝트 전체 흐름 | ✅ | ai-workflow 건너뜀 |
+| 4 | 시나리오 C: "미정" 기술 스택 | ✅ | 강제 해소 테스트 |
+| 5 | 시나리오 D: 재실행 / 편집 테스트 | ✅ | 기존 섹션 Edit + Revision History |
+| 6 | 시나리오 E: 교차 섹션 편집 테스트 | ✅ | 사용자 확인 흐름 |
+| 7 | dogfooding_log 업데이트 | ✅ | v2 라운드 결과 — BL-012~016 발견 및 해결 |
 
 ---
 
@@ -163,23 +168,25 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 ### 시나리오 A — AI 프로젝트 (전체 흐름)
 
-**흐름**: design-requirements -> design-architecture -> design-data-model -> design-ai-workflow -> design-impl-spec
+**흐름**: design-requirements -> design-architecture -> design-data-model -> design-ai-workflow -> kickoff-gap -> kickoff-checklist
 
 **검증 항목**:
-- `_kickoff.md`에 섹션 9~13 모두 존재
+- `_kickoff.md`에 섹션 9~12 모두 존재
 - 섹션 12 (AI 워크플로우) 전체 내용 포함
 - AI 프로젝트 패턴에 맞는 유형별 콘텐츠 (서빙/학습 분리, 프롬프트 설계 등)
 - 각 단계에서 `last_skill` 정상 갱신
-- YAML frontmatter 최종 상태: `last_skill: design-impl-spec`
+- YAML frontmatter 최종 상태: `last_skill: design-ai-workflow`
+- gap이 v2 교차 섹션 정합성 점검 (카테고리 7)
+- checklist가 프로젝트 구조 트리 + .env.example 생성
 
 ### 시나리오 B — 비AI 프로젝트
 
-**흐름**: design-requirements -> design-architecture -> design-data-model -> design-impl-spec
+**흐름**: design-requirements -> design-architecture -> design-data-model -> kickoff-gap -> kickoff-checklist
 
 **검증 항목**:
-- `_kickoff.md`에 섹션 9, 10, 11, 13 존재
+- `_kickoff.md`에 섹션 9, 10, 11 존재
 - 섹션 12 미존재 (ai-workflow 건너뜀)
-- impl-spec이 data-model 직후 실행 (`last_skill` = `design-data-model`이 사전 조건)
+- gap이 data-model 직후 실행 (`last_skill` = `design-data-model`이 사전 조건)
 - 비AI 패턴에 맞는 유형별 콘텐츠 (예: 웹앱이면 DB 스키마, 컴포넌트/페이지별 구조)
 
 ### 시나리오 C — "미정" 기술 스택
@@ -225,7 +232,7 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 - Phase 11, Phase 12 스킬 개발 완료
 - 킥오프 완료 프로젝트 최소 1개 (v1 통합 테스트 또는 신규 생성)
-- 설계 스킬 5종 모두 동작: design-requirements, design-architecture, design-data-model, design-ai-workflow, design-impl-spec
+- 설계 스킬 4종 모두 동작: design-requirements, design-architecture, design-data-model, design-ai-workflow
 
 ---
 
@@ -243,11 +250,11 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 
 1. 5개 시나리오 (A-E) 모두 오류 없이 통과
 2. 전체 흐름 후 `_kickoff.md`가 일관된 단일 파일로 유지
-3. AI 프로젝트 흐름에 설계 섹션 5개 (9-13) 모두 포함
-4. 비AI 프로젝트 흐름에 설계 섹션 4개 (9-11, 13) 포함 + 섹션 12 건너뜀
+3. AI 프로젝트 흐름에 설계 섹션 4개 (9-12) 모두 포함
+4. 비AI 프로젝트 흐름에 설계 섹션 3개 (9-11) 포함 + 섹션 12 건너뜀
 5. 재실행 시 편집 (중복 아님) + Revision History 추적
 6. 교차 섹션 편집 흐름에서 사용자 확인 준수
-7. dogfooding_log에 v2 라운드 결과 업데이트
+7. finance_data_platform 통합테스트로 BL-012~016 발견 및 해결
 
 ---
 
@@ -256,3 +263,4 @@ Validate the complete design document chain works seamlessly with the kickoff fl
 | 날짜 | 내용 |
 |---|---|
 | 2026-05-12 | 최초 작성 |
+| 2026-05-12 | 완료 — design-impl-spec 삭제 (BL-013), 시나리오를 4종 설계 스킬 기준으로 갱신, BL-012~016 해결 |

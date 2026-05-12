@@ -22,6 +22,7 @@ Developed using its own process (dogfooding): the harness was used to plan itsel
 - [How It Works](#how-it-works)
 - [Technology](#technology)
 - [Quick Start](#quick-start)
+- [Showcase](#showcase)
 - [Project Structure](#project-structure)
 - [Development Methodology](#development-methodology)
 - [Documents](#documents)
@@ -31,15 +32,24 @@ Developed using its own process (dogfooding): the harness was used to plan itsel
 ## How It Works
 
 ```
+── Kickoff (What + Why) ──────────────────────────────────────
 /kickoff-context     → Collect user meta info (purpose, skill level, time budget)
-/kickoff-start       → User idea (free text) → Project type detection
+/kickoff-start       → User idea (free text) → Project type detection + language selection
 /kickoff-interview   → Planning interview (What) + Design interview (How — skippable)
 /kickoff-suggest     → AI idea suggestions (up to 5, with effort estimates)
 /kickoff-profile     → project_kickoff.md final review (consistency + quality check)
 /kickoff-evaluate    → Honest evaluation (4+2 dimension value + feasibility check)
-/kickoff-gap         → Gap/contradiction check (finds issues before development)
-/kickoff-checklist   → Dev checklist generation
 /kickoff-done        → Definition of Done (measurable completion criteria)
+
+── Design (How) ──────────────────────────────────────────────
+/design-requirements → Feature decomposition, NFR definition, user flows
+/design-architecture → System structure, tech selection rationale, component design
+/design-data-model   → Data schema, type definitions, integrity rules
+/design-ai-workflow  → AI I/O, prompts, model selection, fallback (AI projects only)
+
+── Finalize ──────────────────────────────────────────────────
+/kickoff-gap         → Gap/contradiction check (incl. v2 cross-section consistency)
+/kickoff-checklist   → Dev checklist generation (incl. project structure + .env)
 /kickoff-skills      → Base skill setup (7 skills from GitHub)
 ```
 
@@ -65,15 +75,24 @@ Developed using its own process (dogfooding): the harness was used to plan itsel
 Run each skill in sequence:
 
 ```
+# Kickoff phase
 /kickoff-context        # (Optional) Collect purpose, skill level, time budget
-/kickoff-start          # Input idea + detect project type
+/kickoff-start          # Input idea + detect project type + select language
 /kickoff-interview      # Planning & design interview
 /kickoff-suggest        # AI suggests additional ideas
 /kickoff-profile        # Final review of project_kickoff.md
 /kickoff-evaluate       # Honest evaluation (4+2 dimensions)
-/kickoff-gap            # Check for gaps and contradictions
-/kickoff-checklist      # Generate dev checklist
 /kickoff-done           # Definition of Done (measurable criteria)
+
+# Design phase (v2)
+/design-requirements    # Feature decomposition + NFR + user flows
+/design-architecture    # System structure + tech selection rationale
+/design-data-model      # Data schema + integrity rules
+/design-ai-workflow     # AI I/O + prompts + model selection (AI projects only)
+
+# Finalize
+/kickoff-gap            # Check for gaps and contradictions
+/kickoff-checklist      # Generate dev checklist + project structure
 /kickoff-skills         # Fetch base skills from GitHub
 ```
 
@@ -86,34 +105,50 @@ Run each skill in sequence:
 └── .claude/skills/*                          # 7 base dev skills (copied by kickoff-skills)
 ```
 
+## Showcase
+
+A real project planned entirely with this harness — from idea to development-ready kickoff document:
+
+| Project | Description | Kickoff Document |
+|---|---|---|
+| [finance_data_platform](https://github.com/SoyeonAhn3/finance_data_platform) | End-to-End finance data analytics platform (Snowflake + Power BI + Text-to-SQL AI) | [finance_data_platform_kickoff.md](https://github.com/SoyeonAhn3/finance_data_platform/blob/main/pre-requirement/finance_data_platform_kickoff.md) |
+
 ## Project Structure
 
 ```
 AI-Project-Kickoff-Harness/
 ├── .claude/skills/              # Kickoff skills + development skills
 │   ├── kickoff-context/         # User context collection
-│   ├── kickoff-start/           # Idea input + type detection
+│   ├── kickoff-start/           # Idea input + type detection + language selection
 │   ├── kickoff-interview/       # Planning & design interview
 │   ├── kickoff-suggest/         # AI idea suggestions
 │   ├── kickoff-profile/         # Kickoff document final review
 │   ├── kickoff-evaluate/        # Honest evaluation (4+2 dimensions)
-│   ├── kickoff-gap/             # Gap/contradiction check
-│   ├── kickoff-checklist/       # Dev checklist generation
 │   ├── kickoff-done/            # Definition of Done generation
+│   ├── design-requirements/     # Feature decomposition + NFR (v2)
+│   ├── design-architecture/     # System structure + tech rationale (v2)
+│   ├── design-data-model/       # Data schema + integrity rules (v2)
+│   ├── design-ai-workflow/      # AI I/O + prompts (v2, conditional)
+│   ├── kickoff-gap/             # Gap/contradiction check (incl. v2 cross-check)
+│   ├── kickoff-checklist/       # Dev checklist + project structure (v2)
 │   ├── kickoff-skills/          # Skill copy to project folder
 │   ├── dev-log/                 # Error/change logging (JSONL)
 │   ├── github-push/             # Commit & push automation
+│   ├── gen-manual/              # Word user manual generation
+│   ├── gen-manual-md/           # Markdown user manual generation
 │   └── ...                      # Other base skills
 ├── Phase/                       # Phase-based development docs
 │   ├── Phase1~7                 # Core skills (completed)
-│   ├── Phase8_kickoff-context.md    # v1.5 — Context-Aware (completed)
-│   ├── Phase9_kickoff-evaluate.md   # v1.5 — Honest Evaluation (completed)
-│   └── Phase10_kickoff-done.md      # v1.5 — Definition of Done (completed)
+│   ├── Phase8~10                # v1.5 — Context/Evaluate/Done (completed)
+│   ├── Phase11                  # v2 — Requirements + Architecture (completed)
+│   ├── Phase12                  # v2 — Data Model + AI Workflow (completed)
+│   └── Phase13                  # v2 — Integration Test (not started)
+├── manuals/                     # User manuals (Korean + English)
 ├── output/                      # Legacy test data (v1.0, state file era)
 │   └── hr_data_analytics/       # Integration test output (archived)
+├── backlog.md                   # Improvement backlog (BL-001~016)
 └── pre-requirement/             # Planning & dogfooding artifacts
     ├── Plan.txt                 # Master plan
-    ├── backlog.md               # Improvement backlog
     └── dogfooding_log.md        # 3 rounds of dogfooding record
 ```
 
@@ -133,7 +168,7 @@ All 8+ discoveries were immediately reflected in the design. See [pre-requiremen
 |---|---|
 | [Plan.txt](./pre-requirement/Plan.txt) | Master plan with full flow, rules, and roadmap |
 | [dogfooding_log.md](./pre-requirement/dogfooding_log.md) | Dogfooding rounds 1~3 findings and improvements |
-| [backlog.md](./pre-requirement/backlog.md) | Improvement backlog with decision rationale |
+| [backlog.md](./backlog.md) | Improvement backlog with decision rationale (BL-001~016) |
 | [project_profile.md](./pre-requirement/project_profile.md) | Dogfooding round 1 output (harness self-profile) |
 
 ## Current Status
@@ -150,6 +185,9 @@ All 8+ discoveries were immediately reflected in the design. See [pre-requiremen
 | Phase 8 — kickoff-context | ✅ Complete | Context-aware prompting (v1.5) |
 | Phase 9 — kickoff-evaluate | ✅ Complete | Honest evaluation layer — 4+2 dimensions (v1.5) |
 | Phase 10 — kickoff-done | ✅ Complete | Definition of Done generation — 3+4 categories (v1.5) |
+| Phase 11 — design-requirements + architecture | ✅ Complete | Requirements spec (section 9) + system architecture (section 10) (v2) |
+| Phase 12 — design-data-model + ai-workflow | ✅ Complete | Data model (section 11) + AI workflow (section 12, conditional) (v2) |
+| Phase 13 — integration test v2 | ✅ Complete | End-to-end validation + BL-012~016 resolved (v2) |
 
 ## Roadmap
 
@@ -166,13 +204,22 @@ All 8+ discoveries were immediately reflected in the design. See [pre-requiremen
 - ✅ Suggest→Feature sync — MVP-adopted suggestions auto-added to feature table (BL-009)
 - ✅ Tech stack gap check — prompt user for undecided layers before finalizing (BL-010)
 
-### v2 (Planned)
+### v2 (Complete)
 
-- Design document generation (4 types, project-type adaptive):
-  - `/design-requirements` — features, non-functional requirements, user flows
-  - `/design-architecture` — system structure, tech choices with rationale
+- ✅ Design document generation (4 skills, project-type adaptive):
+  - `/design-requirements` — feature decomposition, NFR definition, user flows
+  - `/design-architecture` — system structure, tech selection rationale, component design
   - `/design-data-model` — data schema, type definitions, integrity rules
   - `/design-ai-workflow` — AI I/O, prompts, model selection, fallback (conditional: AI projects only)
+- ✅ Skill chain reorder — gap/checklist moved to chain end for full-document validation (BL-015)
+- ✅ Language selection — Korean/English output at kickoff start (BL-016)
+- ✅ Scope change cascade update — 6-field consistency check on MVP changes (BL-014)
+- ✅ Deployment risk detection — unofficial API/scraping cloud deployment warnings (BL-012)
+- ✅ User manual generation — Word (.docx) and Markdown (.md) formats
+- ✅ Integration test — finance_data_platform end-to-end validation, 5 bugs found and resolved
+
+### v3 (Planned)
+
 - Codex CLI / Gemini CLI support
 
 ---

@@ -162,6 +162,9 @@ project: [프로젝트명]
 created: [현재 날짜]
 language: [ko 또는 en — STEP 1에서 선택된 언어]
 last_skill: kickoff-start
+completed_skills:
+  - kickoff-start
+skipped_skills: []
 ---
 
 # Project Kickoff — [프로젝트명]

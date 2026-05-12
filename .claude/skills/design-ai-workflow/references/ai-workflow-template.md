@@ -12,7 +12,7 @@
 | 프로젝트 유형 | 섹션 1 → 기본 정보 → 유형 | "AI" 포함 시 활성 |
 
 - **AI 프로젝트**: 섹션 12 생성 진행
-- **비AI 프로젝트**: 자동 스킵 → `last_skill`을 `design-ai-workflow`로 갱신 후 `/kickoff-gap` 안내
+- **비AI 프로젝트**: 자동 스킵 → `last_skill`을 `design-ai-workflow`로 갱신, `skipped_skills`에 추가 후 `/kickoff-gap` 안내
 - 스킵 시 출력: `"AI 프로젝트가 아니므로 섹션 12(AI 워크플로우)를 건너뜁니다. → /kickoff-gap → /kickoff-checklist"`
 
 ---

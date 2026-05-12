@@ -25,7 +25,7 @@ references:
   - 0개 발견: `/kickoff-start`를 먼저 실행하도록 안내
   - 1개 발견: 해당 파일 Read
   - 2개 이상 발견: 사용자에게 선택 요청
-- YAML frontmatter `last_skill`이 `design-architecture`여야 함
+- YAML frontmatter `completed_skills`에 `design-architecture`가 포함되어야 함
   - 아니면 `/design-architecture`를 먼저 실행하도록 안내
 - 섹션 10(시스템 아키텍처 상세)이 존재해야 함
 
@@ -205,6 +205,9 @@ STEP 2~6 결과를 조합하여 섹션 11 전체 초안을 제시한다.
 
 ```yaml
 last_skill: design-data-model
+completed_skills:
+  - ... (기존 목록)
+  - design-data-model
 ```
 
 ### 8-3. Revision History 추가
@@ -240,7 +243,7 @@ last_skill: design-data-model
 | 실패 유형 | 처리 방법 |
 |---|---|
 | 킥오프 문서 없음 | `/kickoff-start`를 먼저 실행하도록 안내 |
-| `last_skill` 미달 | `/design-architecture`를 먼저 실행하도록 안내 |
+| `completed_skills` 미달 | `/design-architecture`를 먼저 실행하도록 안내 |
 | 섹션 10 없음 | `/design-architecture`를 먼저 실행하도록 안내 |
 | 섹션 11 이미 존재 | 덮어쓰기/수정 선택지 제시 |
 | 파일 Edit 실패 | 해당 섹션 다시 Read 후 정확한 문자열로 재시도 |

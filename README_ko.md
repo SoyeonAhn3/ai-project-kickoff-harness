@@ -22,6 +22,7 @@
 - [동작 흐름](#동작-흐름)
 - [기술 스택](#기술-스택)
 - [빠른 시작](#빠른-시작)
+- [실제 사례](#실제-사례)
 - [프로젝트 구조](#프로젝트-구조)
 - [개발 방법론](#개발-방법론)
 - [문서](#문서)
@@ -31,15 +32,24 @@
 ## 동작 흐름
 
 ```
+── 킥오프 (What + Why) ───────────────────────────────────────
 /kickoff-context     → 사용자 메타 정보 수집 (목적, 수준, 시간 예산)
-/kickoff-start       → 사용자 아이디어 (자유 텍스트) → 프로젝트 유형 판별
+/kickoff-start       → 사용자 아이디어 (자유 텍스트) → 유형 판별 + 언어 선택
 /kickoff-interview   → 기획 인터뷰 (What) + 설계 인터뷰 (How — 패스 가능)
 /kickoff-suggest     → AI 아이디어 제안 (최대 5개, 난이도+시간 포함)
 /kickoff-profile     → project_kickoff.md 최종 검토 (일관성 + 품질 점검)
 /kickoff-evaluate    → 정직한 평가 (4+2 차원 가치 + 실현가능성 점검)
-/kickoff-gap         → 누락/모순 점검 (개발 전에 문제 발견)
-/kickoff-checklist   → 개발 착수 체크리스트 생성
 /kickoff-done        → 완료 조건 생성 (측정 가능한 완료 기준)
+
+── 설계 (How) ────────────────────────────────────────────────
+/design-requirements → 기능 분해, 비기능 요구사항 정의, 사용자 플로우
+/design-architecture → 시스템 구조, 기술 선택 이유, 컴포넌트 설계
+/design-data-model   → 데이터 스키마, 타입 정의, 정합성 규칙
+/design-ai-workflow  → AI 입출력, 프롬프트, 모델 선택, 폴백 (AI 프로젝트만)
+
+── 마무리 ────────────────────────────────────────────────────
+/kickoff-gap         → 누락/모순 점검 (v2 교차 섹션 정합성 포함)
+/kickoff-checklist   → 개발 착수 체크리스트 생성 (프로젝트 구조 + .env 포함)
 /kickoff-skills      → 기본 스킬 세팅 (GitHub에서 7개 스킬 가져오기)
 ```
 
@@ -65,15 +75,24 @@
 각 스킬을 순서대로 실행:
 
 ```
+# 킥오프 단계
 /kickoff-context        # (선택) 목적, 수준, 시간 예산 수집
-/kickoff-start          # 아이디어 입력 + 프로젝트 유형 판별
+/kickoff-start          # 아이디어 입력 + 유형 판별 + 언어 선택
 /kickoff-interview      # 기획 & 설계 인터뷰
 /kickoff-suggest        # AI 추가 아이디어 제안
 /kickoff-profile        # project_kickoff.md 최종 검토
 /kickoff-evaluate       # 정직한 평가 (4+2 차원)
-/kickoff-gap            # 누락/모순 점검
-/kickoff-checklist      # 개발 착수 체크리스트 생성
 /kickoff-done           # 완료 조건 생성 (측정 가능한 기준)
+
+# 설계 단계 (v2)
+/design-requirements    # 기능 분해 + 비기능 요구사항 + 사용자 플로우
+/design-architecture    # 시스템 구조 + 기술 선택 이유
+/design-data-model      # 데이터 스키마 + 정합성 규칙
+/design-ai-workflow     # AI 입출력 + 프롬프트 + 모델 선택 (AI 프로젝트만)
+
+# 마무리
+/kickoff-gap            # 누락/모순 점검
+/kickoff-checklist      # 개발 착수 체크리스트 + 프로젝트 구조
 /kickoff-skills         # GitHub에서 기본 스킬 가져오기
 ```
 
@@ -86,34 +105,50 @@
 └── .claude/skills/*                          # 기본 개발 스킬 7개 (kickoff-skills가 복사)
 ```
 
+## 실제 사례
+
+이 하네스로 기획부터 개발 준비까지 완료한 실제 프로젝트:
+
+| 프로젝트 | 설명 | 킥오프 문서 |
+|---|---|---|
+| [finance_data_platform](https://github.com/SoyeonAhn3/finance_data_platform) | 금융 데이터 분석 플랫폼 (Snowflake + Power BI + Text-to-SQL AI) | [finance_data_platform_kickoff.md](https://github.com/SoyeonAhn3/finance_data_platform/blob/main/pre-requirement/finance_data_platform_kickoff.md) |
+
 ## 프로젝트 구조
 
 ```
 AI-Project-Kickoff-Harness/
 ├── .claude/skills/              # Kickoff 스킬 + 개발 스킬
 │   ├── kickoff-context/         # 사용자 컨텍스트 수집
-│   ├── kickoff-start/           # 아이디어 입력 + 유형 판별
+│   ├── kickoff-start/           # 아이디어 입력 + 유형 판별 + 언어 선택
 │   ├── kickoff-interview/       # 기획 & 설계 인터뷰
 │   ├── kickoff-suggest/         # AI 아이디어 제안
 │   ├── kickoff-profile/         # 킥오프 문서 최종 검토
 │   ├── kickoff-evaluate/        # 정직한 평가 (4+2 차원)
-│   ├── kickoff-gap/             # 누락/모순 점검
-│   ├── kickoff-checklist/       # 개발 착수 체크리스트
 │   ├── kickoff-done/            # 완료 조건 생성
+│   ├── design-requirements/     # 기능 분해 + 비기능 요구사항 (v2)
+│   ├── design-architecture/     # 시스템 구조 + 기술 선택 (v2)
+│   ├── design-data-model/       # 데이터 스키마 + 정합성 규칙 (v2)
+│   ├── design-ai-workflow/      # AI 입출력 + 프롬프트 (v2, 조건부)
+│   ├── kickoff-gap/             # 누락/모순 점검 (v2 교차 점검 포함)
+│   ├── kickoff-checklist/       # 개발 착수 체크리스트 + 프로젝트 구조 (v2)
 │   ├── kickoff-skills/          # 프로젝트 폴더에 스킬 복사
 │   ├── dev-log/                 # 에러/변경 기록 (JSONL)
 │   ├── github-push/             # 커밋 & 푸시 자동화
+│   ├── gen-manual/              # Word 사용자 매뉴얼 생성
+│   ├── gen-manual-md/           # Markdown 사용자 매뉴얼 생성
 │   └── ...                      # 기타 기본 스킬
 ├── Phase/                       # Phase별 개발 문서
 │   ├── Phase1~7                 # 핵심 스킬 (완료)
-│   ├── Phase8_kickoff-context.md    # v1.5 — 컨텍스트 (완료)
-│   ├── Phase9_kickoff-evaluate.md   # v1.5 — 정직한 평가 (완료)
-│   └── Phase10_kickoff-done.md      # v1.5 — 완료 조건 (완료)
+│   ├── Phase8~10                # v1.5 — 컨텍스트/평가/완료조건 (완료)
+│   ├── Phase11                  # v2 — 요구사항 + 아키텍처 (완료)
+│   ├── Phase12                  # v2 — 데이터 모델 + AI 워크플로우 (완료)
+│   └── Phase13                  # v2 — 통합 테스트 (완료)
+├── manuals/                     # 사용자 매뉴얼 (한국어 + 영어)
 ├── output/                      # 레거시 테스트 데이터 (v1.0, state 파일 시대)
 │   └── hr_data_analytics/       # 통합 테스트 산출물 (보관용)
+├── backlog.md                   # 개선 백로그 (BL-001~016)
 └── pre-requirement/             # 기획 & dogfooding 산출물
     ├── Plan.txt                 # 마스터 플랜
-    ├── backlog.md               # 개선 백로그
     └── dogfooding_log.md        # Dogfooding 3회차 기록
 ```
 
@@ -133,7 +168,7 @@ AI-Project-Kickoff-Harness/
 |---|---|
 | [Plan.txt](./pre-requirement/Plan.txt) | 전체 흐름, 규칙, 로드맵이 담긴 마스터 플랜 |
 | [dogfooding_log.md](./pre-requirement/dogfooding_log.md) | Dogfooding 1~3회차 발견 및 개선 내역 |
-| [backlog.md](./pre-requirement/backlog.md) | 개선 백로그 (결정 배경 포함) |
+| [backlog.md](./backlog.md) | 개선 백로그 (결정 배경 포함, BL-001~016) |
 | [project_profile.md](./pre-requirement/project_profile.md) | Dogfooding 1회차 산출물 (하네스 자체 프로필) |
 
 ## 현재 상태
@@ -150,6 +185,9 @@ AI-Project-Kickoff-Harness/
 | Phase 8 — kickoff-context | ✅ 완료 | 컨텍스트 인식 프롬프팅 (v1.5) |
 | Phase 9 — kickoff-evaluate | ✅ 완료 | 정직한 평가 레이어 — 4+2 차원 (v1.5) |
 | Phase 10 — kickoff-done | ✅ 완료 | 완료 조건 생성 — 3+4 카테고리 (v1.5) |
+| Phase 11 — design-requirements + architecture | ✅ 완료 | 요구사항 명세 (섹션 9) + 시스템 아키텍처 (섹션 10) (v2) |
+| Phase 12 — design-data-model + ai-workflow | ✅ 완료 | 데이터 모델 (섹션 11) + AI 워크플로우 (섹션 12, 조건부) (v2) |
+| Phase 13 — 통합 테스트 v2 | ✅ 완료 | v2 설계 문서 체인 검증 + BL-012~016 해결 (v2) |
 
 ## 로드맵
 
@@ -166,13 +204,22 @@ AI-Project-Kickoff-Harness/
 - ✅ 제안→기능 동기화 — MVP 채택 아이디어를 핵심 기능 테이블에 자동 추가 (BL-009)
 - ✅ 기술 스택 미정 확인 — 미정 레이어에 대해 추천 제안 후 확정 (BL-010)
 
-### v2 (예정)
+### v2 (완료)
 
-- 설계 문서 4종 자동 생성 (프로젝트 유형별 적응):
-  - `/design-requirements` — 기능 목록, 비기능 요구사항, 사용자 플로우 확정
-  - `/design-architecture` — 시스템 구조, 기술 선택 이유, 컴포넌트 구성
+- ✅ 설계 문서 4종 자동 생성 (프로젝트 유형별 적응):
+  - `/design-requirements` — 기능 분해, 비기능 요구사항 정의, 사용자 플로우
+  - `/design-architecture` — 시스템 구조, 기술 선택 이유, 컴포넌트 설계
   - `/design-data-model` — 데이터 스키마, 타입 정의, 정합성 규칙
   - `/design-ai-workflow` — AI 입출력, 프롬프트, 모델 선택, 폴백 (조건부: AI 프로젝트만)
+- ✅ 스킬 체인 재배치 — gap/checklist를 체인 맨 끝으로 이동하여 전체 문서 검증 (BL-015)
+- ✅ 언어 선택 — 킥오프 시작 시 한국어/영어 선택 (BL-016)
+- ✅ 범위 변경 연쇄 갱신 — MVP 변경 시 6개 필드 일관성 점검 (BL-014)
+- ✅ 배포 리스크 탐지 — 비공식 API/스크래핑 클라우드 배포 경고 (BL-012)
+- ✅ 사용자 매뉴얼 생성 — Word (.docx) 및 Markdown (.md) 포맷
+- ✅ 통합 테스트 — finance_data_platform 엔드투엔드 검증, 5건 버그 발견 및 해결
+
+### v3 (예정)
+
 - Codex CLI / Gemini CLI 지원
 
 ---

@@ -23,9 +23,9 @@ references:
 - 킥오프 문서(`{프로젝트명}_kickoff.md`)가 존재해야 함
 - 대화 컨텍스트에 경로가 없으면 Glob으로 `**/*_kickoff.md`를 검색
   - 0개 발견: `/kickoff-start`를 먼저 실행하도록 안내
-  - 1개 발견: 해당 파일 Read → YAML frontmatter에서 `last_skill` 확인
-  - 2개 이상 발견: frontmatter에 `last_skill` 필드가 있는 파일만 대상, 여러 개면 사용자에게 선택 요청
-- YAML frontmatter `last_skill`이 `kickoff-suggest` 이상이어야 함
+  - 1개 발견: 해당 파일 Read → YAML frontmatter 확인
+  - 2개 이상 발견: frontmatter에 `completed_skills` 필드가 있는 파일만 대상, 여러 개면 사용자에게 선택 요청
+- YAML frontmatter `completed_skills`에 `kickoff-suggest`가 포함되어야 함
   - 아니면 `/kickoff-suggest`를 먼저 실행하도록 안내
 
 ---
@@ -109,7 +109,7 @@ references:
 
 ### YAML frontmatter 갱신
 
-킥오프 문서의 YAML frontmatter `last_skill`을 `kickoff-profile`로 변경 (Edit 사용)
+킥오프 문서의 YAML frontmatter `last_skill`을 `kickoff-profile`로 변경, `completed_skills`에 `kickoff-profile` 추가 (Edit 사용)
 
 ### 안내 출력
 
@@ -118,7 +118,7 @@ references:
 
 **파일**: `{프로젝트명}_kickoff.md`
 
-다음 단계로 `/kickoff-gap`을 실행하면 누락/모순 점검이 시작됩니다.
+다음 단계로 `/kickoff-evaluate`를 실행하면 프로젝트의 가치와 실현가능성을 평가합니다.
 ```
 
 ---
@@ -128,7 +128,7 @@ references:
 이 스킬은 **기존 킥오프 문서를 검토하고 품질을 정리**한다:
 - 대상: `{프로젝트명}_kickoff.md`
 - 방식: 자동 수정 가능한 항목은 Edit, 내용 판단은 사용자에게 질문
-- YAML frontmatter `last_skill` 갱신
+- YAML frontmatter `last_skill` 및 `completed_skills` 갱신
 - 이후 `kickoff-gap`과 `kickoff-checklist`가 킥오프 문서를 읽고 섹션 5, 6을 추가
 
 ---
