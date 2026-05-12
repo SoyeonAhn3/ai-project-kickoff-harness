@@ -6,6 +6,91 @@
 
 ## 대기 중
 
+## 완료
+
+### BL-016: 킥오프 시작 시 언어 선택 (한국어/영어)
+
+**상태**: ✅ 완료
+**등록일**: 2026-05-12
+**완료일**: 2026-05-12
+
+**내용**: kickoff-start 첫 단계에서 언어를 선택하고, 이후 모든 스킬의 산출물이 선택된 언어로 출력되도록 변경. 최소 접근법 (2개 파일).
+
+**배경**: 영어권 사용자 또는 영문 포트폴리오 용도로 킥오프 문서를 영어로 생성하고 싶은 니즈.
+
+**반영 현황**:
+| 파일 | 변경 | 상태 |
+|---|---|---|
+| kickoff-start SKILL.md | STEP 1에 언어 선택 추가, 출력 템플릿 이중 언어화, YAML frontmatter에 `language` 필드 | ✅ 반영 |
+| profile-template.md | YAML frontmatter에 `language` 필드 추가, 작성 규칙 6을 frontmatter 기반으로 변경 | ✅ 반영 |
+
+---
+
+### BL-014: evaluate 스킬에 scope 변경 시 문서 연쇄 갱신 체크리스트 추가
+
+**상태**: ✅ 완료
+**등록일**: 2026-05-12
+**완료일**: 2026-05-12
+
+**내용**: kickoff-evaluate STEP 4에 "문서 연쇄 갱신" 서브스텝 추가. 기능이 MVP ↔ v2로 이동할 때 영향받는 6개 필드를 순회하여 불일치를 수정한다.
+
+**배경**: finance_data_platform 통합테스트에서 8개 모순 중 3개가 evaluate의 scope 변경 후 관련 필드를 갱신하지 않아 발생.
+
+**반영 현황**:
+| 파일 | 변경 | 상태 |
+|---|---|---|
+| kickoff-evaluate SKILL.md | STEP 4에 "조정 후 문서 연쇄 갱신" 섹션 추가 (6개 필드 체크리스트 + 수행 순서 + 점검 범위 판단) | ✅ 반영 |
+
+### BL-015: gap/checklist 스킬을 체인 맨 끝으로 이동 + v2 정합성 카테고리 추가
+
+**상태**: ✅ 완료
+**등록일**: 2026-05-12
+**완료일**: 2026-05-12
+
+**내용**: 스킬 체인 구조 변경 + gap-rules 확장
+- **(1) 체인 구조 변경**: gap/checklist를 profile 후(이전) → 체인 맨 끝(변경)으로 이동
+  - v1 경로: start → interview → suggest → profile → evaluate → done → **gap → checklist**
+  - v2 경로: ... → done → design-requirements → ... → design-ai-workflow → **gap → checklist**
+- **(2) gap depends_on 변경**: kickoff-profile → **kickoff-done** (최소), design-ai-workflow(v2 시)
+- **(3) gap-rules.md에 카테고리 7 추가** (v2 설계 섹션 교차 정합성):
+  - 7-1: NFR 수치 vs 제약사항 산술 검증
+  - 7-2: 사용자 흐름 vs 아키텍처 진입점/순서
+  - 7-3: 아키텍처 통신 vs 데이터 모델 저장소, ADR vs 생명주기
+  - 7-4: v1 섹션(실패 시나리오 등) vs v2 섹션(FR 에러 처리 등)
+- **(4) checklist 확장**: v2 섹션(9-12) 존재 시 프로젝트 구조 트리 + .env.example 생성
+
+**배경**: finance_data_platform 통합테스트에서 8개 모순 중 5개가 v2 스킬 간 교차 갱신 부재로 발생. gap/checklist를 최종 관문으로 이동하면 전체 문서의 정합성을 한 번에 검증 가능.
+
+**반영 현황**:
+| 파일 | 변경 | 상태 |
+|---|---|---|
+| gap-rules.md | 카테고리 7 (v2 교차 정합성 4개 하위 규칙) 추가, 점검 범위 조건 재구성 | ✅ 반영 |
+| kickoff-gap SKILL.md | v2.0 — depends_on: kickoff-done, 7개 카테고리, v2 미수행 시 건너뜀 | ✅ 반영 |
+| kickoff-checklist SKILL.md | v2 시스템 구조/기술 선택/엔티티 추출 추가, v2 프로젝트 구조 + .env 생성 | ✅ 반영 |
+
+---
+
+### BL-013: design-impl-spec 삭제 → checklist에 프로젝트 구조/.env 흡수
+
+**상태**: ✅ 완료
+**등록일**: 2026-05-12
+**완료일**: 2026-05-12
+
+**결정**: checklist에 흡수 — design-impl-spec 스킬 삭제, 프로젝트 구조(13-1)와 환경 설정(13-2)을 checklist 스킬(섹션 6)의 서브섹션으로 이동. v2 디자인 체인 5→4 스킬로 감소.
+
+**배경**: finance_data_platform 통합테스트에서 발견. 섹션 13의 컴포넌트 상세/의존성이 섹션 10-1, 10-2와 70~80% 중복. BL-015와 결합하여 checklist가 전체 섹션을 참조 가능.
+
+**반영 현황**:
+| 파일 | 변경 | 상태 |
+|---|---|---|
+| design-impl-spec/ | SKILL.md + references/impl-spec-template.md 삭제 | ✅ 삭제 |
+| design-ai-workflow SKILL.md | 다음 단계: /kickoff-gap → /kickoff-checklist로 변경 | ✅ 반영 |
+| design-ai-workflow references | ai-workflow-template.md 비AI 스킵 안내 변경 | ✅ 반영 |
+| design-data-model SKILL.md | 다음 단계 안내에서 design-impl-spec 제거 | ✅ 반영 |
+| kickoff-skills SKILL.md | v2 설계 스킬 테이블에서 design-impl-spec 행 제거, 4종으로 변경 | ✅ 반영 |
+| profile-template.md | 섹션 13 플레이스홀더 제거, 섹션 6에 v2 안내 추가, 규칙 9 섹션 범위 조정 | ✅ 반영 |
+| README.md / README_ko.md | 설계 문서 5종 → 4종, design-impl-spec 행 제거 | ✅ 반영 |
+
 ### BL-012: 외부 의존성 배포 환경 리스크 탐지 추가
 
 **상태**: ✅ 완료
@@ -23,8 +108,6 @@
 | kickoff-checklist SKILL.md | 외부 서비스 영역에 gap 배포 리스크 연동 조건부 항목 추가 (PoC + Fallback) | ✅ 반영 |
 
 ---
-
-## 완료
 
 ### BL-011: BI 대시보드 키워드 "차트" 오판별 수정
 

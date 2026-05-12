@@ -10,6 +10,13 @@ Many projects fail not because of bad code, but because requirements were unclea
 
 Developed using its own process (dogfooding): the harness was used to plan itself across 4 iterations, discovering and fixing 10+ design improvements in the process.
 
+## Manual
+
+| Language | Link |
+|---|---|
+| 한국어 | [User Manual](./manuals/20260512_AI_Project_Kickoff_Harness_매뉴얼.md) |
+| English | [User Manual](./manuals/20260512_AI_Project_Kickoff_Harness_Manual.md) |
+
 ## Table of Contents
 
 - [How It Works](#how-it-works)
@@ -161,12 +168,11 @@ All 8+ discoveries were immediately reflected in the design. See [pre-requiremen
 
 ### v2 (Planned)
 
-- Design document generation (5 types, project-type adaptive):
+- Design document generation (4 types, project-type adaptive):
   - `/design-requirements` — features, non-functional requirements, user flows
   - `/design-architecture` — system structure, tech choices with rationale
   - `/design-data-model` — data schema, type definitions, integrity rules
   - `/design-ai-workflow` — AI I/O, prompts, model selection, fallback (conditional: AI projects only)
-  - `/design-impl-spec` — implementation units, file structure, key component specs, phase overview
 - Codex CLI / Gemini CLI support
 
 ---

@@ -11,6 +11,7 @@
 ---
 project: [프로젝트명]
 created: [날짜]
+language: [ko/en]
 last_skill: kickoff-start
 ---
 
@@ -160,6 +161,7 @@ last_skill: kickoff-start
 ## 6. 개발 착수 체크리스트
 
 > 이 섹션은 `/kickoff-checklist` 실행 시 추가됩니다.
+> v2 설계(섹션 9~12) 완료 시 프로젝트 구조 트리 + 환경 설정(.env.example)이 함께 생성됩니다.
 
 ---
 
@@ -172,6 +174,37 @@ last_skill: kickoff-start
 ## 8. 완료 조건 (Definition of Done)
 
 > 이 섹션은 `/kickoff-done` 실행 시 추가됩니다.
+
+---
+
+## 9. 요구사항 정의
+
+> 이 섹션은 `/design-requirements` 실행 시 추가됩니다.
+
+---
+
+## 10. 시스템 아키텍처 (상세)
+
+> 이 섹션은 `/design-architecture` 실행 시 추가됩니다.
+
+---
+
+## 11. 데이터 모델
+
+> 이 섹션은 `/design-data-model` 실행 시 추가됩니다.
+
+---
+
+## 12. AI 워크플로우
+
+> 이 섹션은 `/design-ai-workflow` 실행 시 추가됩니다. (AI 프로젝트만 해당)
+
+---
+
+## Revision History
+
+| 날짜 | 섹션 | 변경 내용 | 스킬 |
+|---|---|---|---|
 ```
 
 ---
@@ -183,6 +216,7 @@ last_skill: kickoff-start
 3. **빈 항목 처리**: 정보가 없는 항목은 "미정" 표기 (빈칸으로 두지 않음)
 4. **플레이스홀더**: 아직 작성되지 않은 섹션은 `> 이 섹션은 /스킬명 실행 시 작성됩니다.` 문구만 유지 (이후 스킬이 내용 추가)
 5. **설계 패스 시**: 섹션 2, 3, 4를 통째로 생략 (헤더도 없음)
-6. **언어**: 사용자가 사용한 언어로 작성 (한국어 기본)
+6. **언어**: YAML frontmatter `language` 필드에 따라 작성 (`ko` = 한국어, `en` = English). 모든 스킬의 질문, 섹션 내용, 완료 메시지를 해당 언어로 출력한다. `language` 필드가 없으면 한국어 기본.
 7. **YAML frontmatter**: 각 스킬 완료 시 `last_skill` 필드를 해당 스킬명으로 갱신
 8. **문서 생성 시점**: `kickoff-start`가 초기 문서를 생성하고, 이후 스킬이 각 섹션을 채움
+9. **Revision History**: 설계 스킬(섹션 9~12)이 기존 섹션을 수정할 때 날짜, 대상 섹션, 변경 내용, 스킬명을 기록

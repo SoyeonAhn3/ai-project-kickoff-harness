@@ -1,11 +1,11 @@
 ---
 name: kickoff-gap
 type: project-specific
-version: 1.0
-description: project_kickoff.md를 검토하여 누락/모순을 찾고 섹션 5를 추가한다. "/kickoff-gap", "누락 점검해줘", "모순 찾아줘" 등의 요청 시 트리거한다.
+version: 2.0
+description: project_kickoff.md를 검토하여 누락/모순을 찾고 섹션 5를 추가한다. v2 설계 섹션(9~12) 존재 시 교차 정합성도 점검한다. "/kickoff-gap", "누락 점검해줘", "모순 찾아줘" 등의 요청 시 트리거한다.
 required_environment: []
 depends_on:
-  - kickoff-profile
+  - kickoff-done
 produces:
   - "{프로젝트명}_kickoff.md (섹션 5 추가)"
 references:
@@ -25,8 +25,9 @@ project_kickoff.md를 분석하여 누락된 결정사항이나 모순되는 내
   - 0개 발견: `/kickoff-start`를 먼저 실행하도록 안내
   - 1개 발견: 해당 파일 Read → YAML frontmatter에서 `last_skill` 확인
   - 2개 이상 발견: frontmatter에 `last_skill` 필드가 있는 파일만 대상, 여러 개면 사용자에게 선택 요청
-- YAML frontmatter `last_skill`이 `kickoff-profile` 이상이어야 함
-  - 아니면 `/kickoff-profile`을 먼저 실행하도록 안내
+- YAML frontmatter `last_skill`이 `kickoff-done` 이상이어야 함
+  - 아니면 `/kickoff-done`을 먼저 실행하도록 안내
+  - v2 설계 스킬을 실행한 경우 `design-ai-workflow` 이후에 실행 권장
 
 ---
 
@@ -44,7 +45,7 @@ project_kickoff.md를 분석하여 누락된 결정사항이나 모순되는 내
 
 ## STEP 2 — 점검 수행
 
-`references/gap-rules.md`의 5개 카테고리를 순서대로 점검한다.
+`references/gap-rules.md`의 7개 카테고리를 순서대로 점검한다.
 
 ### 점검 카테고리
 
@@ -56,12 +57,18 @@ project_kickoff.md를 분석하여 누락된 결정사항이나 모순되는 내
 | 4 | 실패 처리 누락 | 폴백, 중복 방지, 모니터링 |
 | 5 | MVP 범위 모순 | 기능 의존성, 범위 vs 제약 |
 | 6 | 평가 지적 항목 재확인 | evaluate 조정 결과와 기존 섹션 간 충돌 (evaluate 미실행 시 건너뜀) |
+| 7 | v2 설계 섹션 교차 정합성 | NFR vs 제약사항, 사용자 흐름 vs 아키텍처, v1 vs v2 (v2 미실행 시 건너뜀) |
 
 ### 설계 패스 시
 
 - 카테고리 2, 3 → 건너뜀
 - 카테고리 1, 4 → 프로필 범위만 점검
 - 카테고리 5 → 정상 점검
+
+### v2 설계 미수행 시
+
+- 카테고리 7 → 건너뜀 (v2 설계 섹션 없음)
+- 카테고리 1~6 → 정상 점검
 
 ---
 

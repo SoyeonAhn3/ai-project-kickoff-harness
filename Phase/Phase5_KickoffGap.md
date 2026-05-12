@@ -1,0 +1,176 @@
+# Phase 5 — KickoffGap `Done`
+
+> Develop the skill that reviews project_kickoff.md to find gaps/contradictions and adds section 5
+
+**Status**: Done
+**Prerequisites**: Phase 4 complete
+
+---
+
+## Overview
+
+Analyzes the generated project_kickoff.md to discover missing decisions or contradictory content. Only flags clear contradictions; asks the user about ambiguous items. Results are added as section 5 to the file.
+
+---
+
+## Deliverables
+
+| # | Skill / Module | Status | Skill Type |
+|---|---|---|---|
+| 1 | `kickoff-gap` SKILL.md | Done | project-specific |
+| 2 | `references/gap-rules.md` | Done | - |
+| 3 | Inspection rules definition (contradiction judgment criteria) | Done | - |
+| 4 | Functional test | Done | Verified in Phase 7 integration test |
+
+---
+
+## kickoff-gap
+
+### Purpose
+
+Identify planning/design issues before development begins. This is the harness's key differentiator from a simple document generator.
+
+### Implementation Files
+
+```
+.claude/skills/kickoff-gap/
+├── SKILL.md
+└── references/
+    └── gap-rules.md   # Inspection rules (criteria for judging contradictions/gaps)
+```
+
+### Core Behavior
+
+1. Read pre-requirement/project_kickoff.md
+2. Analyze against gap-rules.md inspection criteria:
+   - Cross-section technology choice inconsistencies
+   - Missing stages in data flow
+   - Schedule/timeline conflicts
+   - Undefined failure handling
+   - Missing deduplication strategy
+3. Clear contradictions -> flag immediately
+4. Ambiguous items -> ask the user, record user's decision
+5. Add results to project_kickoff.md as "## 5. Gap/Contradiction Review Results" section
+
+### Design Decisions
+
+| Decision | Detail | Reason |
+|---|---|---|
+| Only flag clear contradictions | Only point out items with strong confidence | False positives reduce user trust |
+| User decides on ambiguous items | Ask then record user's response | Confirmed in dogfooding |
+| Direct file append | Add section at bottom using Edit | Incremental section addition approach |
+| gap-rules.md separated | Inspection criteria can be updated independently | Easy to add type-specific rules |
+
+---
+
+## Prerequisites & Dependencies
+
+- Phase 4 complete (project_kickoff.md must exist)
+- Refer to skill-template structure
+
+---
+
+## Development Notes
+
+- Always Read project_kickoff.md first -> then Edit to append
+- If design interview was skipped (sections 2-4 absent), inspection scope narrows -> only check contradictions within profile (section 1)
+- Record user responses in "problem + resolution" format
+
+---
+
+## Change Log
+
+| Date | Description |
+|---|---|
+| 2026-05-04 | Initial creation |
+| 2026-05-06 | Status update: implementation complete (Phase 7 integration test passed) |
+
+---
+---
+
+# Phase 5 — kickoff-gap 스킬 개발 `완료`
+
+> project_kickoff.md를 검토하여 누락/모순을 찾고 섹션 5를 추가하는 스킬 개발
+
+**상태**: 완료
+**선행 조건**: Phase 4 완료
+
+---
+
+## 개요
+
+생성된 project_kickoff.md의 내용을 분석하여 누락된 결정사항이나 모순되는 내용을 발견한다. 명확한 모순만 잡고, 애매한 건 사용자에게 질문. 결과를 섹션 5로 파일에 추가.
+
+---
+
+## 완료 예정 / 완료 항목
+
+| # | Skill / 모듈 | 상태 | 스킬 타입 |
+|---|---|---|---|
+| 1 | `kickoff-gap` SKILL.md 작성 | 완료 | project-specific |
+| 2 | `references/gap-rules.md` 작성 | 완료 | - |
+| 3 | 점검 규칙 정의 (모순 판단 기준) | 완료 | - |
+| 4 | 동작 테스트 | 완료 | Phase 7 통합 테스트에서 검증 |
+
+---
+
+## kickoff-gap
+
+### 목적
+
+개발 전에 기획/설계의 문제를 찾아내는 하네스의 핵심 차별점. 단순 문서 생성기와의 차이를 만드는 단계.
+
+### 구현 파일
+
+```
+.claude/skills/kickoff-gap/
+├── SKILL.md
+└── references/
+    └── gap-rules.md   # 점검 규칙 (어떤 조건에서 모순/누락으로 판단하는가)
+```
+
+### 핵심 동작
+
+1. pre-requirement/project_kickoff.md를 Read
+2. gap-rules.md의 점검 기준으로 분석:
+   - 섹션 간 기술 선택 불일치
+   - 데이터 흐름에서 빠진 단계
+   - 시간/스케줄 충돌
+   - 정의되지 않은 실패 처리
+   - 중복 방지 방식 누락
+3. 명확한 모순 -> 바로 지적
+4. 애매한 건 -> 사용자에게 질문, 사용자 결정 후 기록
+5. 결과를 project_kickoff.md 하단에 "## 5. 누락/모순 점검 결과" 섹션으로 추가
+
+### 설계 결정 사항
+
+| 결정 | 내용 | 이유 |
+|---|---|---|
+| 명확한 모순만 잡기 | 강한 확신 있는 것만 지적 | 오탐 시 사용자 신뢰 하락 |
+| 애매한 건 사용자 결정 | 질문 후 사용자 응답을 기록 | dogfooding에서 확정 |
+| 파일에 직접 추가 | Edit으로 하단에 섹션 추가 | 단계별 추가 방식 |
+| gap-rules.md 분리 | 점검 기준은 독립 업데이트 가능 | 유형별 규칙 추가 용이 |
+
+---
+
+## 선행 조건 및 의존성
+
+- Phase 4 완료 (project_kickoff.md가 존재해야 함)
+- skill-template 구조 참고
+
+---
+
+## 개발 시 주의사항
+
+- project_kickoff.md를 반드시 Read 먼저 -> 이후 Edit으로 추가
+- 설계 인터뷰를 패스한 경우 (섹션 2~4 없음) 점검 범위가 좁아짐 -> 프로필(섹션 1) 내부 모순만 점검
+- 사용자 응답을 "문제 + 해결" 형태로 기록
+
+---
+
+## 변경 이력
+
+| 날짜 | 내용 |
+|---|---|
+| 2026-05-04 | 최초 작성 |
+| 2026-05-06 | 상태 갱신: 구현 완료 반영 (Phase 7 통합 테스트 통과 확인) |
